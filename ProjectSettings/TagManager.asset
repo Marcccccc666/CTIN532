@@ -2,8 +2,10 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -11,10 +13,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - player
+  - Enemy
+  - Wall
+  - "\u5B50\u5F39"
   - 
   - 
   - 
@@ -41,3 +43,20 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: "\u5730\u9762"
+    uniqueID: 4032116159
+    locked: 0
+  - name: "\u654C\u4EBA"
+    uniqueID: 1657374595
+    locked: 0
+  - name: "\u5B50\u5F39"
+    uniqueID: 776576001
+    locked: 0
+  - name: Player
+    uniqueID: 234420865
+    locked: 0
+  - name: Wall
+    uniqueID: 4294028151
+    locked: 0
+  m_RenderingLayers:
+  - Default
