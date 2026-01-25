@@ -1,12 +1,7 @@
 using UnityEngine;
 
 public class InputData : Singleton<InputData>
-{
-    void Update()
-    {
-        //Debug.Log("攻击状态：" + IsAttack);
-    }
-    
+{   
     private Vector2 moveDirection;
     /// <summary>
     /// 移动方向
@@ -17,7 +12,6 @@ public class InputData : Singleton<InputData>
         set { moveDirection = value; }
     }
 
-    
     private bool isAttack;
 
     /// <summary>
