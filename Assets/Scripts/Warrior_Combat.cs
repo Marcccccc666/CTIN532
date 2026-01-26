@@ -44,7 +44,7 @@ public class Warrior_Combat : MonoBehaviour
             {
                 foreach (Collider2D enemy in hitEnemies)
                 {
-                    enemy.GetComponent<Enemy_combat>().TakeDamage(attackDamage);
+                    enemy.GetComponent<Enemy_Health>().TakeDamage(attackDamage);
                     enemy.GetComponent<Enemy_HitEffect1>().Knockback(AttackPoint, knockbackForce);
                 }
             }
