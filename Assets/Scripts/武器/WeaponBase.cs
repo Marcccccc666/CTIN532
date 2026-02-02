@@ -6,6 +6,11 @@ public class WeaponBase : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         Vector2 mouseWorldPosition = InputData.MouseWorldPosition;
         ObjectRotation.RotateTowardsTarget(this.transform, mouseWorldPosition, 1000f);
 

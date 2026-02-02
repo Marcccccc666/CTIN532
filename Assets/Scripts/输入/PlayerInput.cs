@@ -17,12 +17,22 @@ public class PlayerInput : MonoBehaviour
 
     void OnMove(InputValue direction)
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         Vector2 moveDirection = direction.Get<Vector2>();
         InputData.MoveDirection = moveDirection;
     }
 
     void OnAttack()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
+        {
+            return;
+        }
+
         if(MultiTimerManager.IsDownTimerComplete("AttackCooldown"))
         {
             InputData.IsAttack = true;
