@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: Assembly-CSharp::LevelData
   enemies:
-  - {fileID: 6740500160704608436, guid: bac3fe620536d064d983473d95742153, type: 3}
+  - {fileID: 1740422455164711344, guid: 87b6433f2cd59794dae681f86405b403, type: 3}
   enemyCount: 2

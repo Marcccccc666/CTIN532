@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GunBaseData
   m_EditorClassIdentifier: Assembly-CSharp::GunBaseData
   weaponName: 
-  weaponDamage: 1
+  weaponDamage: 2
   attackInterval: 0.5
   weaponRotationSpeed: 1000
   bulletPrefab: {fileID: 7211240625171716979, guid: e6a8d1d9c0cd27747a94af0db40f53f6, type: 3}

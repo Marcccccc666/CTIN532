@@ -18,12 +18,6 @@ public class BulletAttack : MonoBehaviour
             {
                 enemyManager.RemoveEnemyData(enemyID);
 
-                // 检查是否所有敌人都已被消灭
-                int numberOfEnemies = enemyManager.GetEnemyDataDict.Count;
-                if(numberOfEnemies <= 0)
-                {
-                    GameManager.IsGameOver = true;
-                }
             }
             Destroy(gameObject);
         }

@@ -28,7 +28,8 @@ public class GunController : WeaponBase
         // 实例化子弹
         Rigidbody2D bulletInstance = Instantiate(GunData.BulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         BulletAttack bulletAttack = bulletInstance.GetComponent<BulletAttack>();
-        bulletAttack.SetBulletDamage(GunData.WeaponDamage);
+        int finalDamage = weaponManager.GetFinalDamage(GunData.WeaponDamage);
+        bulletAttack.SetBulletDamage(finalDamage);
         // 这里可以添加子弹的初速度等属性设置
         bulletInstance.AddForce(bulletSpawnPoint.right * GunData.BulletSpeed, ForceMode2D.Impulse);
         AudioSource.PlayClipAtPoint(M_attackAudioClip, Camera.main.transform.position);

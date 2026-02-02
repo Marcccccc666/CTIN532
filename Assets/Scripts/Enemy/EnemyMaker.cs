@@ -11,6 +11,17 @@ public class EnemyMaker : MonoBehaviour
     private EnemyManager enemyManager => EnemyManager.Instance;
     private LevelManager levelManager => LevelManager.Instance;
 
+    public void SetSpawnBounds(Transform top, Transform bottom)
+    {
+        if (top == null || bottom == null)
+        {
+            return;
+        }
+
+        topPoint = top;
+        bottomPoint = bottom;
+    }
+
     void Awake()
     {
         levelManager.GotoNextLevelAction += MakeEnemy;
@@ -30,6 +41,11 @@ public class EnemyMaker : MonoBehaviour
 
     private Vector2 RandomSpawnPosition()
     {
+        if (topPoint == null || bottomPoint == null)
+        {
+            return Vector2.zero;
+        }
+
         float randomY = Random.Range(bottomPoint.position.y, topPoint.position.y);
         float randomX = Random.Range(topPoint.position.x, bottomPoint.position.x);
         
