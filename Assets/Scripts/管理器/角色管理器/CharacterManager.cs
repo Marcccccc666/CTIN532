@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,12 +22,18 @@ public class CharacterManager: Singleton<CharacterManager>
     }
 
     /// <summary>
+    /// 当前玩家角色数据改变时的事件
+    /// </summary>
+    public Action<CharacterDate> OnCurrentPlayerCharacterDataChanged;
+
+    /// <summary>
     /// 设置当前玩家控制的角色数据
     /// </summary>
     /// <param name="characterData">角色数据</param>
     public void SetCurrentPlayerCharacterData(CharacterDate characterData)
     {
         CurrentPlayerCharacterData = characterData;
+        OnCurrentPlayerCharacterDataChanged?.Invoke(characterData);
     }
 #endregion
 }

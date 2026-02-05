@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,16 +14,7 @@ public class InputData : Singleton<InputData>
         set { moveDirection = value; }
     }
 
-    private bool isAttack;
-
-    /// <summary>
-    /// 是否攻击
-    /// </summary>
-    public bool IsAttack
-    {
-        get { return isAttack; }
-        set { isAttack = value; }
-    }
+    public Action IsAttackAction;
 
     /// <summary>
     /// 鼠标世界位置

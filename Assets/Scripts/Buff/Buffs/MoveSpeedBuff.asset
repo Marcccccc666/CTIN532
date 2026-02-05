@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: MoveSpeedBuff
   m_EditorClassIdentifier: Assembly-CSharp::MoveSpeedBuff
   buffId: 
-  displayName: 
-  description: 
-  speedMultiplierDelta: 0.2
-  speedBonus: 0
+  displayName: Move Speed++
+  description: Move Speed++
+  speedBonus: 3

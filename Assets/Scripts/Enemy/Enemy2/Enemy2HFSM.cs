@@ -16,7 +16,7 @@ public class Enemy2HFSM : MonoBehaviour
     [SerializeField] private float attackCommitDuration = 1.05f;
 
     private EnemyData enemyData;
-    private Rigidbody2D rigidbody2D;
+    private Rigidbody2D RB2D;
     private Animator animator;
     private Enemy_Combat combat;
     private float baseVisualScaleX;
@@ -55,7 +55,7 @@ public class Enemy2HFSM : MonoBehaviour
         enemyData = GetComponent<EnemyData>();
         enemyData.InitObjectData();
 
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        RB2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         combat = GetComponentInChildren<Enemy_Combat>();
         if (visualRoot == null)
@@ -100,7 +100,7 @@ public class Enemy2HFSM : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rigidbody2D.angularVelocity = 0f;
+        RB2D.angularVelocity = 0f;
 
         if (stateMachine.ActiveStateName == Enemy2StateID.Move && ShouldChase())
         {
@@ -108,7 +108,7 @@ public class Enemy2HFSM : MonoBehaviour
         }
         else
         {
-            rigidbody2D.linearVelocity = Vector2.zero;
+            RB2D.linearVelocity = Vector2.zero;
         }
     }
 
@@ -246,7 +246,7 @@ public class Enemy2HFSM : MonoBehaviour
 
         Vector2 direction =
             ((Vector2)playerTransform.position - (Vector2)transform.position).normalized;
-        ObjectMove.MoveObject(rigidbody2D, direction, enemyData.CurrentMoveSpeed);
+        ObjectMove.MoveObject(RB2D, direction, enemyData.CurrentMoveSpeed);
     }
 
     private void UpdateFacing()
@@ -346,7 +346,7 @@ public class Enemy2HFSM : MonoBehaviour
 
         isStunned = true;
         stunTimer = duration;
-        rigidbody2D.linearVelocity = Vector2.zero;
+        RB2D.linearVelocity = Vector2.zero;
     }
 
     public bool IsAttacking => stateMachine.ActiveStateName == Enemy2StateID.Attack;

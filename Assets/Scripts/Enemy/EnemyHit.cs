@@ -11,13 +11,19 @@ public class EnemyHit : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            characterManager.GetCurrentPlayerCharacterData.CurrentHealth -= enemyData.EnemyBaseData.baseAttack;
+            int damage = enemyData != null ? enemyData.CurrentAttack : 1;
 
-            int playerHP = characterManager.GetCurrentPlayerCharacterData.CurrentHealth;
-            if (playerHP <= 0)
-            {
-                gameManager.IsGameOver = true;
-            }
+            characterManager.GetCurrentPlayerCharacterData.Damage(damage);
         }
     }
+
+#if UNITY_EDITOR
+    void OnValidate()
+    {
+        if (enemyData == null)
+        {
+            enemyData = GetComponentInParent<EnemyData>();
+        }
+    }
+#endif
 }

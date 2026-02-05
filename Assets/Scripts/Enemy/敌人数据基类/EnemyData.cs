@@ -9,7 +9,7 @@ public class EnemyData : ObjectData
         set => enemyBaseData = value;
     }
 
-    public  override void InitObjectData()
+    public override void InitObjectData()
     {
         if(EnemyBaseData != null)
         {

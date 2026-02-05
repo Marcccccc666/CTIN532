@@ -3,13 +3,13 @@ using UnityHFSM;
 
 public enum Character{}
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(CaesarData))]
 public class Caesar_Controller : MonoBehaviour
 {
     /// <summary>
     /// 角色数据
     /// </summary>
-    [SerializeField,ChineseLabel("角色数据")]private CaesarData M_chData;
+    private CaesarData M_chData;
 
     [Header("攻击设置")]
     [SerializeField,ChineseLabel("枪口位置")]private Transform M_gunMuzzle;
@@ -19,9 +19,6 @@ public class Caesar_Controller : MonoBehaviour
     [Header("动画设置")]
     [SerializeField,ChineseLabel("动画控制器")] private Animator M_animator;
     [SerializeField,ChineseLabel("移动动画名")] private string M_moveAnimaeName;
-
-    [Header("音频设置")]
-    [SerializeField,ChineseLabel("攻击音效")]private AudioClip M_attackAudioClip;
 
     /// <summary>
     /// 角色刚体
@@ -43,6 +40,9 @@ public class Caesar_Controller : MonoBehaviour
     /// </summary>
     private CharacterManager characterManager => CharacterManager.Instance;
 
+    private GameManager gameManager => GameManager.Instance;
+
+    private BuffManager buffManager => BuffManager.Instance;
     public enum Caesar_StateID
     {
         Idle,
@@ -52,10 +52,13 @@ public class Caesar_Controller : MonoBehaviour
 
     private void Awake()
     {
+        M_chData = GetComponent<CaesarData>();
+        
+        M_chData.InitObjectData();
         characterManager.SetCurrentPlayerCharacterData(M_chData);
         M_rigidbody2D = GetComponent<Rigidbody2D>();
 
-        M_chData.InitObjectData();
+        
         
         CharacterStateMachine();
 
@@ -64,6 +67,11 @@ public class Caesar_Controller : MonoBehaviour
     
     private void FixedUpdate()
     {
+        if(buffManager && buffManager.IsBuffSelectionOpen)
+        {
+            return;
+        }
+
         M_rigidbody2D.angularVelocity = 0f;
         // 移动角色
         if(InputData.MoveDirection != Vector2.zero)
@@ -74,10 +82,15 @@ public class Caesar_Controller : MonoBehaviour
 
     private void Update()
     {
-        Caesar_stateMachine.OnLogic();
+        if(buffManager && buffManager.IsBuffSelectionOpen)
+        {
+            return;
+        }
 
         M_animator.SetFloat("Input_X", InputData.MoveDirection.x);
         M_animator.SetFloat("Input_Y", InputData.MoveDirection.y);
+
+        Caesar_stateMachine.OnLogic();
     }
 
     /// <summary>

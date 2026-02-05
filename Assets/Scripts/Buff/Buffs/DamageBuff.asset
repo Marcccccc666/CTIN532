@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: DamageBuff
   m_EditorClassIdentifier: Assembly-CSharp::DamageBuff
   buffId: 
-  displayName: 
-  description: 
-  damageMultiplierDelta: 0
+  displayName: Damage ++
+  description: Damage ++
   damageBonus: 1

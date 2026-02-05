@@ -15,7 +15,6 @@ public class Move : CharacterState<Caesar_Controller.Caesar_StateID>
     public override void OnEnter()
     {
         base.OnEnter();
-        Debug.Log("进入移动状态");
         M_animator.Play(M_MoveAnimaeHash);
     }
 

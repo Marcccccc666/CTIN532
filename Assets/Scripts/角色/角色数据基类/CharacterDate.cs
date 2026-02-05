@@ -46,8 +46,7 @@ public class CharacterDate : ObjectData
             else if (value <= 0)
             {
                 currentHealth = 0;
-                gameManager.IsGameOver = true;
-                gameManager.GameCheckout?.Invoke();
+                OnDie?.Invoke();
             }
             else
             {

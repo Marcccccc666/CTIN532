@@ -15,8 +15,7 @@ public class RoomLevelConfig
 
 public class RoomLevelManager : MonoBehaviour
 {
-    [SerializeField] private LevelController levelController;
-    [SerializeField] private EnemyMaker enemyMaker;
+    [SerializeField] private ThemeController levelController;
     [SerializeField] private List<RoomLevelConfig> rooms = new List<RoomLevelConfig>();
     [SerializeField] private bool autoStartFirstLevel = false;
     [SerializeField] private int firstRoomIndex = 0;
@@ -32,12 +31,7 @@ public class RoomLevelManager : MonoBehaviour
     {
         if (levelController == null)
         {
-            levelController = FindObjectOfType<LevelController>();
-        }
-
-        if (enemyMaker == null)
-        {
-            enemyMaker = FindObjectOfType<EnemyMaker>();
+            levelController = FindObjectOfType<ThemeController>();
         }
 
         InitializeRooms();
@@ -53,14 +47,14 @@ public class RoomLevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        gameManager.GameCheckout += OnGameCheckout;
+      //  gameManager.GameCheckout += OnGameCheckout;
     }
 
     private void OnDisable()
     {
         if (GameManager.Instance != null)
         {
-            gameManager.GameCheckout -= OnGameCheckout;
+           // gameManager.GameCheckout -= OnGameCheckout;
         }
     }
 
@@ -92,11 +86,6 @@ public class RoomLevelManager : MonoBehaviour
             Debug.Log($"[RoomLevelManager] StartRoom({roomIndex})");
         }
 
-        if (enemyMaker != null)
-        {
-            enemyMaker.SetSpawnBounds(room.spawnTop, room.spawnBottom);
-        }
-
         SetGateClosed(room.entryGate, true);
 
         SetGateClosed(room.exitGate, true);
@@ -111,7 +100,7 @@ public class RoomLevelManager : MonoBehaviour
             Debug.LogWarning($"[RoomLevelManager] No exit trigger found for room {roomIndex}");
         }
 
-        levelController?.NextLevel();
+        levelController?.NextTheme();
     }
 
     private void OnGameCheckout()

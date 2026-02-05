@@ -18,7 +18,7 @@ public class Enemy_Combat : MonoBehaviour
     {
         if (enemyData == null)
         {
-            enemyData = GetComponent<EnemyData>();
+            enemyData = GetComponentInParent<EnemyData>();
         }
     }
 
@@ -57,12 +57,7 @@ public class Enemy_Combat : MonoBehaviour
         }
 
         int damage = enemyData != null ? enemyData.CurrentAttack : fallbackDamage;
-        playerData.CurrentHealth -= damage;
-
-        if (playerData.CurrentHealth <= 0)
-        {
-            gameManager.IsGameOver = true;
-        }
+        playerData.Damage(damage);
     }
 
     public void OnDrawGizmosSelected()

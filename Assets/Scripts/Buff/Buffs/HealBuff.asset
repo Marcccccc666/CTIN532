@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HealBuff
   m_EditorClassIdentifier: Assembly-CSharp::HealBuff
   buffId: 
-  displayName: 
-  description: 
+  displayName: Max HP++
+  description: Max HP++
   maxHealthIncrease: 2

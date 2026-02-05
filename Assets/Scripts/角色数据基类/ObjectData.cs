@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ObjectData : MonoBehaviour
@@ -10,12 +11,29 @@ public class ObjectData : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// 加血事件
+    /// </summary>
+    /// <param name="health">加血值</param>
+    public Action<int> OnHeal;
+
+    /// <summary>
+    /// 受伤事件
+    /// </summary>
+    /// <param name="damage">受伤值</param>
+    public Action<int> OnDamage;
+
+    /// <summary>
+    /// 死亡事件
+    /// </summary>
+    public Action OnDie;
+
 #region 生命值
     protected int maxHealth;
     /// <summary>
     /// 最大生命值
     /// </summary>
-    public int MaxHealth
+    public virtual int MaxHealth
     {
         get
         {
@@ -34,6 +52,7 @@ public class ObjectData : MonoBehaviour
         }
     }
     protected int currentHealth;
+
     /// <summary>
     /// 当前生命值
     /// </summary>
@@ -60,6 +79,26 @@ public class ObjectData : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 加血
+    /// </summary>
+    /// <param name="health">加血值</param>
+    public virtual void Heal(int health)
+    {
+        CurrentHealth += health;
+        OnHeal?.Invoke(health);
+    }
+
+    /// <summary>
+    /// 受伤
+    /// </summary>
+    /// <param name="damage">受伤值</param>
+    public virtual void Damage(int damage)
+    {
+        CurrentHealth -= damage;
+        OnDamage?.Invoke(damage);
+    }
+
 #endregion
 
 #region 移动速度
@@ -67,7 +106,7 @@ public class ObjectData : MonoBehaviour
     /// <summary>
     /// 当前移动速度
     /// </summary>
-    public float CurrentMoveSpeed
+    public virtual float CurrentMoveSpeed
     {
         get
         {
