@@ -10,7 +10,7 @@ public class WeaponBase : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        InputData.IsAttackAction += Attack;
+        
     }
 
     protected virtual void Update()
@@ -26,7 +26,7 @@ public class WeaponBase : MonoBehaviour
 
     protected virtual void OnDisable()
     {
-        InputData.IsAttackAction -= Attack;
+        
     }
 
 

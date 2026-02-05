@@ -2,8 +2,18 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum MouseState
+{
+    None,
+    Press,
+    Hold,
+    Release
+}
+
+
 public class InputData : Singleton<InputData>
 {   
+#region WASD
     private Vector2 moveDirection;
     /// <summary>
     /// 移动方向
@@ -13,8 +23,22 @@ public class InputData : Singleton<InputData>
         get { return moveDirection; }
         set { moveDirection = value; }
     }
+#endregion
 
-    public Action IsAttackAction;
+
+#region Mouse
+
+    private MouseState currentMouseState = MouseState.None;
+
+    /// <summary>
+    /// 当前鼠标状态
+    /// </summary>
+    public MouseState CurrentMouseState=> currentMouseState;
+
+    public void SetMouseState(MouseState newState)
+    {
+        currentMouseState = newState;
+    }
 
     /// <summary>
     /// 鼠标世界位置
@@ -28,4 +52,7 @@ public class InputData : Singleton<InputData>
             return mouseWorldPosition;
         }
     }
+#endregion
+
+
 }

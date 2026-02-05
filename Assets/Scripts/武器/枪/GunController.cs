@@ -13,13 +13,31 @@ public class GunController : WeaponBase
 
     [SerializeField,ChineseLabel("攻击音效")]private AudioClip M_attackAudioClip;
 
-
+    private InputData inputData => InputData.Instance;
     private WeaponManager weaponManager => WeaponManager.Instance;
+    private MultiTimerManager MultiTimerManager => MultiTimerManager.Instance;
 
     private void Awake()
     {
         weaponManager.SwitchWeapon(GunData);
+        MultiTimerManager.Create_DownTimer("GunAttackCooldown");
     }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if(inputData.CurrentMouseState == MouseState.Press || inputData.CurrentMouseState == MouseState.Hold)
+        {
+            if(MultiTimerManager.IsDownTimerComplete("GunAttackCooldown"))
+            {
+                Attack();
+                MultiTimerManager.Start_DownTimer("GunAttackCooldown", GunData.AttackInterval);
+            }
+        }
+    }
+
+
 
     public override void Attack()
     {
