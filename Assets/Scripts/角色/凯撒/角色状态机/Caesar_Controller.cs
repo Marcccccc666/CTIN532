@@ -11,11 +11,6 @@ public class Caesar_Controller : MonoBehaviour
     /// </summary>
     private CaesarData M_chData;
 
-    [Header("攻击设置")]
-    [SerializeField,ChineseLabel("枪口位置")]private Transform M_gunMuzzle;
-
-    [SerializeField,ChineseLabel("子弹预制体")]private Rigidbody2D M_bulletPrefab;
-
     [Header("动画设置")]
     [SerializeField,ChineseLabel("动画控制器")] private Animator M_animator;
     [SerializeField,ChineseLabel("移动动画名")] private string M_moveAnimaeName;
@@ -33,7 +28,7 @@ public class Caesar_Controller : MonoBehaviour
     /// <summary>
     /// 输入数据
     /// </summary>
-    private InputData InputData => InputData.Instance;
+    private InputManager inputManager => InputManager.Instance;
 
     /// <summary>
     /// 角色管理器
@@ -74,9 +69,9 @@ public class Caesar_Controller : MonoBehaviour
 
         M_rigidbody2D.angularVelocity = 0f;
         // 移动角色
-        if(InputData.MoveDirection != Vector2.zero)
+        if(inputManager.MoveDirection != Vector2.zero)
         {
-            ObjectMove.MoveObject(M_rigidbody2D, InputData.MoveDirection, M_chData.CurrentMoveSpeed);
+            ObjectMove.MoveObject(M_rigidbody2D, inputManager.MoveDirection, M_chData.CurrentMoveSpeed);
         }
     }
 
@@ -87,8 +82,8 @@ public class Caesar_Controller : MonoBehaviour
             return;
         }
 
-        M_animator.SetFloat("Input_X", InputData.MoveDirection.x);
-        M_animator.SetFloat("Input_Y", InputData.MoveDirection.y);
+        M_animator.SetFloat("Input_X", inputManager.MoveDirection.x);
+        M_animator.SetFloat("Input_Y", inputManager.MoveDirection.y);
 
         Caesar_stateMachine.OnLogic();
     }
@@ -110,10 +105,10 @@ public class Caesar_Controller : MonoBehaviour
 
         // 转换条件
             // 待机 -> 移动
-                Caesar_stateMachine.AddTransition(Caesar_StateID.Idle, Caesar_StateID.Move, t => InputData.MoveDirection != Vector2.zero);
+                Caesar_stateMachine.AddTransition(Caesar_StateID.Idle, Caesar_StateID.Move, t => inputManager.MoveDirection != Vector2.zero);
 
             // 移动 -> 待机
-                Caesar_stateMachine.AddTransition(Caesar_StateID.Move, Caesar_StateID.Idle, t => InputData.MoveDirection == Vector2.zero);
+                Caesar_stateMachine.AddTransition(Caesar_StateID.Move, Caesar_StateID.Idle, t => inputManager.MoveDirection == Vector2.zero);
 
         // 设置初始状态
         Caesar_stateMachine.SetStartState(Caesar_StateID.Idle);

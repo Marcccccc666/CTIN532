@@ -11,7 +11,7 @@ public enum MouseState
 }
 
 
-public class InputData : Singleton<InputData>
+public class InputManager : Singleton<InputManager>
 {   
 #region WASD
     private Vector2 moveDirection;
@@ -54,5 +54,8 @@ public class InputData : Singleton<InputData>
     }
 #endregion
 
+#region Interaction
+    public Action OnInteractionPressed;
 
+#endregion
 }

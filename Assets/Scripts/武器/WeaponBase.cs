@@ -5,7 +5,7 @@ public abstract class WeaponBase : MonoBehaviour
 {
     [SerializeField, ChineseLabel("武器数据")] protected WeaponData WeaponData;
 
-    private InputData InputData => InputData.Instance;
+    private InputManager inputManager => InputManager.Instance;
 
     protected GameManager gameManager => GameManager.Instance;
 
@@ -30,7 +30,7 @@ public abstract class WeaponBase : MonoBehaviour
     protected virtual void Update()
     {
         // 使武器始终朝向鼠标位置
-        Vector2 mouseWorldPosition = InputData.MouseWorldPosition;
+        Vector2 mouseWorldPosition = inputManager.MouseWorldPosition;
         ObjectRotation.RotateTowardsTarget(this.transform, mouseWorldPosition, 1000f);
     }
 

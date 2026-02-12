@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: "Assets/Scenes/Tom\u573A\u666F.unity"
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scenes/MainMean.unity
+    guid: 51ca730698142384ea1971447fe1c68d
+  - enabled: 1
+    path: Assets/Scenes/PreparationRoom.unity
+    guid: e418104ee363fef40a20322a2750d966
+  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 242c0eaae82465f4aa634d4f85a99e5f
   m_configObjects:

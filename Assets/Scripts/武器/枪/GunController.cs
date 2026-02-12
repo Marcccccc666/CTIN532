@@ -16,7 +16,7 @@ public class GunController : WeaponBase
     /// </summary>
     private GunData M_gunData => WeaponData as GunData;
     
-    private InputData inputData => InputData.Instance;
+    private InputManager inputManager => InputManager.Instance;
     private WeaponManager weaponManager => WeaponManager.Instance;
     private MultiTimerManager MultiTimerManager => MultiTimerManager.Instance;
 
@@ -34,7 +34,7 @@ public class GunController : WeaponBase
         }
         base.Update();
 
-        if(inputData.CurrentMouseState == MouseState.Press || inputData.CurrentMouseState == MouseState.Hold)
+        if(inputManager.CurrentMouseState == MouseState.Press || inputManager.CurrentMouseState == MouseState.Hold)
         {
             if(MultiTimerManager.IsDownTimerComplete("GunAttackCooldown") )
             {

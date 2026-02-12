@@ -59,7 +59,6 @@ public class CheckoutPage : MonoBehaviour
     {
         enemyManager.ClearEnemyData();
         ResetSingletons();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void checkPageOpen()
@@ -104,7 +103,7 @@ public class CheckoutPage : MonoBehaviour
         DestroyIfExists<CharacterManager>();
         DestroyIfExists<BuffManager>();
         DestroyIfExists<WeaponManager>();
-        DestroyIfExists<InputData>();
+        DestroyIfExists<InputManager>();
         DestroyIfExists<MultiTimerManager>();
     }
 
