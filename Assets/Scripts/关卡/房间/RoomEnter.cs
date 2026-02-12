@@ -5,13 +5,13 @@ using UnityEngine;
 /// </summary>
 public class RoomEnter : MonoBehaviour
 {
-    [SerializeField, ChineseLabel("房间控制器")] private RoomController roomController;
+    [SerializeField, ChineseLabel("房间控制器")] private BattleRoomController roomController;
     
     private void Awake()
     {
         if(roomController == null)
         {
-            roomController = GetComponentInParent<RoomController>();
+            OnValidate();
         }
     }
 
@@ -19,6 +19,7 @@ public class RoomEnter : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
+            Debug.Log("玩家进入房间");
             roomController.PlayerEnterRoom();
         }
     }
@@ -32,7 +33,7 @@ public class RoomEnter : MonoBehaviour
     {
         if(roomController == null)
         {
-            roomController = GetComponentInParent<RoomController>();
+            roomController = GetComponentInParent<BattleRoomController>();
 
             if(roomController == null)
             {

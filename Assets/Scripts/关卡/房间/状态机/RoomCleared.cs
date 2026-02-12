@@ -1,21 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomCleared : BaseState<RoomController.RoomState>
+public class RoomCleared : BaseState<RoomState>
 {
-    private GameObject Doors;
+    private BattleRoomController battleRoomController;
 
     private BuffManager buffManager => BuffManager.Instance;
+    private CameraManager cameraManager => CameraManager.Instance;
 
-    public RoomCleared(GameObject Doors) : base()
+    public RoomCleared(BattleRoomController battleRoomController) : base()
     {
-        this.Doors = Doors;
+        this.battleRoomController = battleRoomController;
     }
-
+    
     public override void OnEnter()
     {
         base.OnEnter();
-        Doors.SetActive(false);
+        
+        cameraManager.ResetToDefaultCamera();
+        battleRoomController.SetLockRoom(false);
 
         // 房间清理后触发 Buff 选择界面
         buffManager.RequestBuffSelection();
