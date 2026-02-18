@@ -1,6 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
+[RequireComponent(typeof(CinemachineCamera))]
 public class DefaultCameraController : MonoBehaviour
 {
     [SerializeField, ChineseLabel("默认相机")] private CinemachineCamera defaultCamera;
@@ -20,7 +21,7 @@ public class DefaultCameraController : MonoBehaviour
     {
         if (defaultCamera == null)
         {
-            defaultCamera = GetComponentInChildren<CinemachineCamera>();
+            defaultCamera = GetComponent<CinemachineCamera>();
             if (defaultCamera == null)
             {
                 Debug.LogError("默认相机未设置且在子对象中未找到，请检查 " + gameObject.name);
