@@ -53,6 +53,10 @@ public class CharacterHPUI : MonoBehaviour
 
     private void UnbindCharacter(CharacterDate character)
     {
+        if(character == null)
+        {
+            return;
+        }
         character.OnDamage -= (damage) => UpdateHPDisplay(character);
         character.OnHeal -= (heal) => UpdateHPDisplay(character);
         character.OnDie -= () => UpdateHPDisplay(character);

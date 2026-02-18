@@ -18,6 +18,7 @@ public class GunController : WeaponBase
     
     private InputManager inputManager => InputManager.Instance;
     private WeaponManager weaponManager => WeaponManager.Instance;
+    private PoolManager poolManager => PoolManager.Instance;
     private MultiTimerManager MultiTimerManager => MultiTimerManager.Instance;
 
     private void Awake()
@@ -67,7 +68,7 @@ public class GunController : WeaponBase
         for (int i = 0; i < bulletCount; i++)
         {
             // 实例化子弹并设置其伤害
-            bullets[i] = Instantiate(gunBaseData.BulletPrefab, instancePositions[i], bulletSpawnPoint.rotation);
+            bullets[i] = poolManager.Spawn(gunBaseData.BulletPrefab, instancePositions[i], bulletSpawnPoint.rotation, false);
             bullets[i].SetBulletDamage(finalDamage);
             bullets[i].SetBulletPenetration(finalPenetration);
         }
@@ -75,6 +76,7 @@ public class GunController : WeaponBase
         // 发射子弹
         foreach (var bullet in bullets)
         {
+            poolManager.Activate(bullet);
             bullet.GetRG2D.AddForce(bulletSpawnPoint.right * gunBaseData.BulletSpeed, ForceMode2D.Impulse);
         }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class BulletAttack : MonoBehaviour
+public class BulletAttack : PoolableObject<BulletAttack>
 {
     /// <summary>
     /// 子弹伤害值，默认为10，可以通过SetBulletDamage方法进行设置
@@ -18,6 +18,7 @@ public class BulletAttack : MonoBehaviour
     private GameManager GameManager => GameManager.Instance;
     private WeaponManager weaponManager => WeaponManager.Instance;
     private EnemyManager enemyManager => EnemyManager.Instance;
+    private PoolManager poolManager => PoolManager.Instance;
 
     private void Awake()
     {
@@ -48,13 +49,19 @@ public class BulletAttack : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject);
+                Release();
             }
         }
         else if(collision.CompareTag("Wall"))
         {
-            Destroy(gameObject);
+           Release();
         }
+    }
+
+    public override void OnDespawn()
+    {
+        base.OnDespawn();
+        RG2D.linearVelocity = Vector2.zero;
     }
 
     /// <summary>

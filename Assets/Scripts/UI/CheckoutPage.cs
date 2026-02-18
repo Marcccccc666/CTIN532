@@ -35,7 +35,10 @@ public class CheckoutPage : MonoBehaviour
 
     private void OnDisable()
     {
-        characterManager.GetCurrentPlayerCharacterData.OnDie -= ShowGameOverPage;
+        if(characterManager.GetCurrentPlayerCharacterData != null)
+        {
+            characterManager.GetCurrentPlayerCharacterData.OnDie -= ShowGameOverPage;
+        }
     }
 
     public void ShowSuccessPage()
