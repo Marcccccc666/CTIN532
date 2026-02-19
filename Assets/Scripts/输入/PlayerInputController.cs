@@ -6,12 +6,12 @@ public class PlayerInputController : MonoBehaviour
 {
     [SerializeField, ChineseLabel("攻击键按多久才算是Hold")] private float holdThreshold = 0.5f;
     private InputManager inputManager => InputManager.Instance;
-    private WeaponManager weaponManager => WeaponManager.Instance;
     private BuffManager buffManager => BuffManager.Instance;
+    private GameManager gameManager => GameManager.Instance;
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (buffManager && buffManager.IsBuffSelectionOpen)
+        if (!gameManager.IsPlayerControllable)
         {
             return;
         }

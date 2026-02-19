@@ -36,7 +36,7 @@ public class GunBaseData : WeaponBaseData
     public float FanShapedAngle => fanShapedAngle;
 
     [Header("子弹属性")]
-    [SerializeField, ChineseLabel("子弹刚体预制体")] private BulletAttack bulletPrefab;
+    [SerializeField, ChineseLabel("子弹预制体")] private BulletAttack bulletPrefab;
     /// <summary>
     /// 子弹刚体预制体
     /// </summary>
@@ -52,6 +52,5 @@ public class GunBaseData : WeaponBaseData
     /// 子弹穿透力
     /// </summary>
     public int BulletPenetration => bulletPenetration;
-
 
 }

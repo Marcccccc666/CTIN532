@@ -73,7 +73,6 @@ public class CharacterHPUI : MonoBehaviour
     {
         if(characterData != null)
         {
-            Debug.Log("角色数据已更新，刷新HP显示");
             HPText.text = $"{prefix}{characterData.CurrentHealth}/{characterData.MaxHealth}";
         }
     }

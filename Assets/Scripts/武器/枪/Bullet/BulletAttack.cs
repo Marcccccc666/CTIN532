@@ -64,7 +64,7 @@ public class BulletAttack : PoolableObject<BulletAttack>
                 Release();
             }
         }
-        else if(collision.CompareTag("Wall"))
+        else if(collision.CompareTag("Wall") || collision.CompareTag("Obstacle"))
         {
            Release();
         }

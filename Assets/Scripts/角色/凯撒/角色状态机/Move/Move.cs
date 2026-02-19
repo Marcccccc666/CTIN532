@@ -19,9 +19,4 @@ public class Move : CharacterState<Caesar_Controller.Caesar_StateID>
         M_animator.Play(M_MoveAnimaeHash);
     }
 
-    public override void OnLogic()
-    {
-        base.OnLogic();
-    }
-
 }

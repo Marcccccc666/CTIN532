@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WeaponBaseData : ScriptableObject
 {
+    [Header("武器属性")]
     [SerializeField, ChineseLabel("武器名称")] private string weaponName;
     /// <summary>
     /// 武器名称

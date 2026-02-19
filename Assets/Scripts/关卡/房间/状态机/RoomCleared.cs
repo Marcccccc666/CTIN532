@@ -22,7 +22,7 @@ public class RoomCleared : BaseState<RoomState>
         if(currentHealth > 0)
         {
             // 房间清理后触发 Buff 选择界面
-        buffManager.RequestBuffSelection();
+            buffManager.RequestBuffSelection();
         }
         
     }

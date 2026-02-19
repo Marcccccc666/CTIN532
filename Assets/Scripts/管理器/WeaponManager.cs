@@ -35,7 +35,7 @@ public class WeaponManager: Singleton<WeaponManager>
     {
         float scaled = baseDamage * damageMultiplier;
         int total = Mathf.RoundToInt(scaled) + damageBonus;
-        return Mathf.Max(0, total);
+        return Mathf.Max(1, total);
     }
 
     /// <summary>

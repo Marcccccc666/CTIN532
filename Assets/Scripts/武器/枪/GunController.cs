@@ -44,7 +44,10 @@ public class GunController : WeaponBase
 
     protected override void Attack()
     {
-        gunAnimator.Play(Animator.StringToHash(shootAnimationName));
+        if(gunAnimator != null)
+        {
+            gunAnimator.Play(Animator.StringToHash(shootAnimationName));
+        }
 
         GunBaseData gunBaseData = M_gunData.WeaponBaseData as GunBaseData;
 

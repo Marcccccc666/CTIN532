@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 /// <summary>
 /// 管理游戏状态
@@ -39,6 +38,6 @@ public class GameManager : Singleton<GameManager>
     /// <para> 玩家不可操作的情况包括：游戏暂停、正在选择 Buff </para>
     /// <para> Ture 表示玩家可操作, False 表示玩家不可操作 </para>
     /// </summary>
-    public bool IsPlayerControllable => !isGamePaused && !(BuffManager.Instance.IsBuffSelectionOpen);
+    public bool IsPlayerControllable => !isGamePaused && !BuffManager.Instance.IsBuffSelectionOpen;
 #endregion
 }
