@@ -674,7 +674,7 @@ MonoBehaviour:
   idleAnimationState: idle
   moveAnimationState: move
   attackAnimationState: attack
-  defaultHateRange: 8
+  defaultHateRange: 12
   obstacleMask:
     serializedVersion: 2
     m_Bits: 768
