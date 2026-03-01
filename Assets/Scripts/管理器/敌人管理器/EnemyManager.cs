@@ -82,7 +82,7 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         if (EnemyDataDict.ContainsKey(id))
         {
-            Object.Destroy(EnemyDataDict[id].gameObject);
+            EnemyDataDict[id].gameObject.SetActive(false);
             EnemyDataDict.Remove(id);
         }
     }

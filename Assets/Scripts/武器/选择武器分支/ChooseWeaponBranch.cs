@@ -6,6 +6,7 @@ public class ChooseWeaponBranch : MonoBehaviour
 
     [SerializeField, ChineseLabel("分支卡")] private WeaponBranch[] weaponBranches;
     private WeaponManager weaponManager => WeaponManager.Instance;
+    private BuffManager buffManager => BuffManager.Instance;
     private int selectedBranchIndex = -1;
 
     /// <summary>
@@ -82,10 +83,17 @@ public class ChooseWeaponBranch : MonoBehaviour
 
     public void ConfirmSelection()
     {
+        // 切换到选中的武器分支
         if (selectedBranchIndex >= 0 && weaponManager.GetCurrentWeapon.WeaponBaseData is InitialGunData initialGunData)
         {
             GunBrach selectedBranch = initialGunData.GunBrachs[selectedBranchIndex];
             weaponManager.SwitchWeapon(selectedBranch.Data);
         }
+        // 结束升级状态，关闭分支选择界面
+        weaponManager.SetIsUpgradeInProgress(false);
+        branchSelectionUI.SetActive(false);
+
+        // 触发 Buff 选择
+        buffManager.RequestBuffSelection();
     }
 }

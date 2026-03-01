@@ -22,6 +22,8 @@ public abstract class BattleRoomController : RoomBase
     /// </summary>
     [SerializeField, ChineseListLabel("房间内敌人")] private EnemyData[] EnemiesInRoom;
 
+    [SerializeField, ChineseLabel("房间情况后，要回收的子弹")] protected EnemyBulletAttack enemyBulletProfab;
+
     /// <summary>
     /// 是否锁门
     /// </summary>

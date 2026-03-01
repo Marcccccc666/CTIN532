@@ -17,14 +17,15 @@ public class WeaponManager: Singleton<WeaponManager>
     [SerializeField, ChineseLabel("攻击间隔减少(秒)")] private float attackIntervalBonus = 0f;
 
     /// <summary>
-    /// 武器切换事件，参数为新武器数据
-    /// </summary>
-    public Action<WeaponData> OnWeaponSwitched;
-
-    /// <summary>
     /// 获取当前武器
     /// </summary>
     public WeaponData GetCurrentWeapon => currentWeapon;
+
+#region 武器切换
+    /// <summary>
+    /// 武器切换事件，参数为新武器数据
+    /// </summary>
+    public Action<WeaponData> OnWeaponSwitched;
 
     /// <summary>
     /// 切换武器
@@ -38,7 +39,42 @@ public class WeaponManager: Singleton<WeaponManager>
         currentWeapon = newWeapon;
         OnWeaponSwitched?.Invoke(newWeapon);
     }
+#endregion
 
+#region 升级武器
+    /// <summary>
+    /// 升级当前武器
+    /// </summary>
+    public Action UpgradeCurrentWeapon;
+
+    
+    private bool isUpgradeInProgress = false;
+    /// <summary>
+    /// 是否正在升级武器
+    /// </summary>
+    public bool IsUpgradeInProgress => isUpgradeInProgress;
+
+    /// <summary>
+    /// 设置是否正在升级武器
+    /// </summary>
+    public void SetIsUpgradeInProgress(bool inProgress)
+    {
+        isUpgradeInProgress = inProgress;
+    }
+
+    /// <summary>
+    /// 升级当前武器（触发升级事件）
+    /// </summary>
+    public void UpgradeCurrentWeaponInvoke()
+    {
+        SetIsUpgradeInProgress(true);
+        UpgradeCurrentWeapon?.Invoke();
+    }
+
+
+#endregion
+
+#region 武器数值
     /// <summary>
     /// 获取最终伤害
     /// </summary>
@@ -81,11 +117,5 @@ public class WeaponManager: Singleton<WeaponManager>
     {
         attackIntervalBonus += bonus;
     }
-
-    #region 升级武器
-    /// <summary>
-    /// 升级当前武器
-    /// </summary>
-    public Action UpgradeCurrentWeapon;
-    #endregion
+#endregion
 }

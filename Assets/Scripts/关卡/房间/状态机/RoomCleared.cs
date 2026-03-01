@@ -3,28 +3,37 @@ using UnityEngine;
 
 public class RoomCleared : BaseState<RoomState>
 {
+    private BattleRoomController battleRoomController;
+    private bool isFirstRoom;
+    private EnemyBulletAttack enemyBulletProfab;
+
     private BuffManager buffManager => BuffManager.Instance;
     private CharacterManager characterManager => CharacterManager.Instance;
-    private BattleRoomController battleRoomController;
+    protected WeaponManager weaponManager => WeaponManager.Instance;
+    private PoolManager poolManager => PoolManager.Instance;
 
-    private bool isFirstRoom;
 
-    public RoomCleared(BattleRoomController battleRoomController, bool isFirstRoom) : base()
+    public RoomCleared(BattleRoomController battleRoomController, bool isFirstRoom, EnemyBulletAttack enemyBullProfab) : base()
     {
         this.battleRoomController = battleRoomController;
         this.isFirstRoom = isFirstRoom;
+        this.enemyBulletProfab = enemyBullProfab;
     }
 
     public override void OnEnter()
     {
         base.OnEnter();
+
+        // 回收房间内的敌人子弹
+        poolManager.ReleasePool(enemyBulletProfab);
         
+        // 开门
         battleRoomController.SetLockRoom(false);
 
         int currentHealth = characterManager.GetCurrentPlayerCharacterData.CurrentHealth;
         if(isFirstRoom)
         {
-            WeaponManager.Instance.UpgradeCurrentWeapon?.Invoke();
+            weaponManager.UpgradeCurrentWeaponInvoke();
         }
         else if(currentHealth > 0)
         {

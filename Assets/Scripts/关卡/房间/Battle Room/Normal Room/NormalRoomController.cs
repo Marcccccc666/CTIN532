@@ -7,6 +7,9 @@ using UnityHFSM;
 /// </summary>
 public class NormalRoomController : BattleRoomController
 {
+    /// <summary>
+    /// 是否是第一间房
+    /// </summary>
     public bool isFirstRoom = false;
     protected override void RoomStateMachineInit()
     {
@@ -18,7 +21,7 @@ public class NormalRoomController : BattleRoomController
             M_StateMachine.AddState(RoomState.Fighting, new RoomFighting());
 
             //已清除状态
-            M_StateMachine.AddState(RoomState.Cleared, new RoomCleared(this, isFirstRoom));
+            M_StateMachine.AddState(RoomState.Cleared, new RoomCleared(this, isFirstRoom, enemyBulletProfab));
 
         // 转换条件
             M_StateMachine.AddTransition(RoomState.Unvisited, RoomState.Fighting, t => LockRoom == true);
