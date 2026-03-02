@@ -231,7 +231,7 @@ public class DamageHitFeedback : MonoBehaviour
         text.fontSize = Mathf.Max(0.1f, damageTextFontSize);
         text.alignment = TextAlignmentOptions.Center;
         text.color = damageTextColor;
-        text.enableWordWrapping = false;
+        text.textWrappingMode = TextWrappingModes.NoWrap;
 
         if (TMP_Settings.defaultFontAsset != null)
         {

@@ -22,7 +22,7 @@ public abstract class BattleRoomController : RoomBase
     /// </summary>
     [SerializeField, ChineseListLabel("房间内敌人")] private EnemyData[] EnemiesInRoom;
 
-    [SerializeField, ChineseLabel("房间情况后，要回收的子弹")] protected EnemyBulletAttack enemyBulletProfab;
+    [SerializeField, ChineseLabel("房间清空后，要回收的子弹")] protected EnemyBulletAttack enemyBulletProfab;
 
     /// <summary>
     /// 是否锁门
@@ -50,6 +50,7 @@ public abstract class BattleRoomController : RoomBase
     public override void PlayerEnterRoom()
     {
         base.PlayerEnterRoom();
+        SetLockRoom(true);
 
         for (int i = 0; i < EnemiesInRoom.Length; i++)
         {
@@ -57,8 +58,6 @@ public abstract class BattleRoomController : RoomBase
             enemyManager.AddEnemyData(enemyID, EnemiesInRoom[i]);
             EnemiesInRoom[i].PlayerEnterRoom = true;
         }
-
-        SetLockRoom(true);
     }
 
     /// <summary>

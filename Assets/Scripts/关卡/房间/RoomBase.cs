@@ -20,7 +20,11 @@ public abstract class RoomBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        RoomCamera.Priority = 0; // 设置房间相机优先级为最低
+        if(RoomCamera)
+        {
+            RoomCamera.Priority = 0; // 设置房间相机优先级为最低
+        }
+        
         RoomStateMachineInit();
         M_StateMachine.Init();
     }
@@ -39,6 +43,7 @@ public abstract class RoomBase : MonoBehaviour
     /// <summary>
     /// 玩家进入房间
     /// <para> TriggerEnter 调用 </para>
+    /// <para> 默认实现为切换相机，子类可重写实现其他逻辑 </para>
     /// </summary>
     public virtual void PlayerEnterRoom()
     {
@@ -46,7 +51,11 @@ public abstract class RoomBase : MonoBehaviour
         {
             return;
         }
-        cameraManager.SetCurrentCamera(RoomCamera);
+        
+        if(RoomCamera)
+        {
+            cameraManager.SetCurrentCamera(RoomCamera);
+        }
     }
 
 #region UNITY_EDITOR

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -54,7 +55,13 @@ public class BulletAttack : MonoBehaviour, IPoolable<BulletAttack>
         {
             hasCollided = true;
             int enemyID = collision.gameObject.GetInstanceID();
-            EnemyData enemyData = enemyManager.GetEnemyDataDict[enemyID];
+            Dictionary<int, EnemyData> enemyDataDict = enemyManager.GetEnemyDataDict;
+
+            if(!enemyDataDict.TryGetValue(enemyID, out EnemyData enemyData))
+            {
+                Debug.LogError("未找到敌人数据");
+                return;
+            }
             enemyData.Damage(bulletDamage);
 
             if(enemyData.CurrentHealth <= 0)
@@ -66,6 +73,7 @@ public class BulletAttack : MonoBehaviour, IPoolable<BulletAttack>
             if (bulletPenetration > 0)
             {
                 bulletPenetration--;
+                hasCollided = false; // 允许继续碰撞
             }
             else
             {
