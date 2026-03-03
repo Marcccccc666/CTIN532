@@ -5,6 +5,7 @@ public class GunController : WeaponBase
     [Header("动画相关")]
     [SerializeField, ChineseLabel("动画控制器")] protected Animator gunAnimator;
     [SerializeField, ChineseLabel("射击动画名")] protected string shootAnimationName = "Shoot";
+    protected int shootAnimationHash = 0;
 
     [Header("射击相关")]
     [SerializeField, ChineseLabel("子弹生成点")] protected Transform bulletSpawnPoint;
@@ -17,6 +18,10 @@ public class GunController : WeaponBase
     protected override void Awake()
     {
         base.Awake();
+        if(!gunAnimator)
+        {
+            shootAnimationHash = Animator.StringToHash(shootAnimationName);
+        }
         
         MultiTimerManager.Create_DownTimer("GunAttackCooldown");
     }
@@ -33,6 +38,13 @@ public class GunController : WeaponBase
         {
             if(MultiTimerManager.IsDownTimerComplete("GunAttackCooldown") )
             {
+                int currentBulletCount = M_gunData.CurrentBulletCount;
+                if (currentBulletCount <= 0)
+                {
+                    return; // 没有子弹，无法攻击
+                }
+
+                M_gunData.CurrentBulletCount = currentBulletCount - 1; // 消耗一发子弹
                 Attack();
                 if(M_attackAudioClip != null)
                 {
@@ -49,21 +61,19 @@ public class GunController : WeaponBase
     {
         if(gunAnimator != null)
         {
-            gunAnimator.Play(Animator.StringToHash(shootAnimationName));
+            gunAnimator.Play(shootAnimationHash);
         }
 
         GunBaseData gunBaseData = M_gunData.WeaponBaseData as GunBaseData;
-
-        int bulletCount = M_gunData.GetFinalBallisticsCount;
+        int bulletCount = weaponManager.GetFinalBallisticsCount(gunBaseData.InitialBallisticsCount);
         int finalDamage = weaponManager.GetFinalDamage(gunBaseData.WeaponDamage);
-        int finalPenetration = M_gunData.GetFinalPenetration;
+        int finalPenetration = weaponManager.GetFinalPenetration(gunBaseData.BulletPenetration);
         
         BulletAttack[] bullets = new BulletAttack[bulletCount];
         
 
         // 计算每个子弹的生成位置
-        Vector3[] instancePositions = new Vector3[bulletCount];
-        instancePositions = BulletMovement.BulletMoveTypes(
+        Vector3[] instancePositions = BulletMovement.BulletMoveTypes(
             bulletSpawnPoint: bulletSpawnPoint,
             bulletType: gunBaseData.BallisticsType,
             intervalDistance: gunBaseData.BulletIntervalDistance,
@@ -82,6 +92,9 @@ public class GunController : WeaponBase
             bullets[i].Initialize(bulletSpawnPoint.right, gunBaseData.BulletSpeed, finalDamage, finalPenetration);
             poolManager.Activate(gunBaseData.BulletPrefab, bullets[i]);
         }
+
+        buffManager.AttackTriggered?.Invoke(bulletSpawnPoint);
+
     }
 
 }

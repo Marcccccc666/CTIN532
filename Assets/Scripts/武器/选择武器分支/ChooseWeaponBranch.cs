@@ -5,6 +5,8 @@ public class ChooseWeaponBranch : MonoBehaviour
     [SerializeField, ChineseLabel("分支选择界面")] private GameObject branchSelectionUI;
 
     [SerializeField, ChineseLabel("分支卡")] private WeaponBranch[] weaponBranches;
+
+    private WeaponData currentWeaponDataProfab;
     private WeaponManager weaponManager => WeaponManager.Instance;
     private BuffManager buffManager => BuffManager.Instance;
     private int selectedBranchIndex = -1;
@@ -22,7 +24,7 @@ public class ChooseWeaponBranch : MonoBehaviour
         var currentWeaponData = weaponManager.GetCurrentWeapon;
         if(currentWeaponData != null)
         {
-            UpdateSelectionUI(currentWeaponData);
+            UpdateSelectionUI(currentWeaponDataProfab, currentWeaponData);
         }
     }
 
@@ -49,7 +51,7 @@ public class ChooseWeaponBranch : MonoBehaviour
         }
     }
 
-    private void UpdateSelectionUI(WeaponData newWeapon)
+    private void UpdateSelectionUI(WeaponData weaponDataPrefab, WeaponData newWeapon)
     {
         if(newWeapon.WeaponBaseData is InitialGunData initialGunData)
         {

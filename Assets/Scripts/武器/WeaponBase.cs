@@ -56,7 +56,10 @@ public abstract class WeaponBase : MonoBehaviour
     /// <summary>
     /// 武器攻击方法
     /// </summary>
-    protected abstract void Attack();
+    protected virtual void Attack()
+    {
+        buffManager.AttackTriggered.Invoke(transform);
+    }
 
 #region UNITY_EDITOR
     /// <summary>

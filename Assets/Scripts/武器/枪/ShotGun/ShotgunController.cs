@@ -5,12 +5,9 @@ public class ShotgunController : GunController
 {
     private ShotGunDate M_gunData => WeaponData as ShotGunDate;
 
-    private int shootAnimationHash = 0;
-
     protected override void Awake()
     {
         base.Awake();
-        shootAnimationHash = Animator.StringToHash(shootAnimationName);
     }
 
     protected override void Update()
@@ -40,9 +37,9 @@ public class ShotgunController : GunController
 
         ShotGunBaseDate gunBaseData = M_gunData.WeaponBaseData as ShotGunBaseDate;
 
-        int bulletCount = M_gunData.GetFinalBallisticsCount;
+        int bulletCount = weaponManager.GetFinalBallisticsCount(gunBaseData.InitialBallisticsCount);
         int finalDamage = weaponManager.GetFinalDamage(gunBaseData.WeaponDamage);
-        int finalPenetration = M_gunData.GetFinalPenetration;
+        int finalPenetration = weaponManager.GetFinalPenetration(gunBaseData.BulletPenetration);
 
         BulletAttack[] bullets = new BulletAttack[bulletCount];
 
@@ -78,9 +75,11 @@ public class ShotgunController : GunController
             poolManager.Activate(gunBaseData.BulletPrefab, bullets[i]);
         }
 
+        buffManager.AttackTriggered?.Invoke(transform);
+
         if(M_attackAudioClip != null)
         {
-            AudioSource.PlayClipAtPoint(M_attackAudioClip, Camera.main.transform.position);
+            audioManager.PlaySFX(M_attackAudioClip);
         }
     }
 

@@ -1,69 +1,119 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class GunData : WeaponData
 {
-#region 弹道
-    [SerializeField, ChineseLabel("武器弹道数加成")] private int ballisticsBonus = 0;
-    /// <summary>
-    /// 武器弹道数加成
-    /// </summary>
-    public int BallisticsBonus => ballisticsBonus;
-
-    /// <summary>
-    /// 增加武器弹道数加成
-     /// <para> 最终弹道数 = 基础弹道数 + 弹道数加成 </para>
-    /// </summary>
-    /// <param name="bonus"></param>
-    public void AddBallisticsBonus(int bonus)
+    private void OnEnable()
     {
-        ballisticsBonus += bonus;
+        Initialize();
     }
 
-    
-    ///<summary>
-    /// 获取武器弹道数
-    /// </summary>
-    public int GetFinalBallisticsCount
+    public override void Initialize()
     {
-        get
+        if (weaponBaseData is GunBaseData gunBaseData)
         {
-            if (weaponBaseData is GunBaseData gunData)
+            CurrentBulletCount = weaponManager.GetFinalBulletCount(gunBaseData.MaxBulletCount);
+
+            if (gunBaseData.BulletReplenishInterval > 0)
             {
-                return gunData.InitialBallisticsCount + ballisticsBonus;
+                replenishCoroutine = StartCoroutine(ReplenishBullets());
             }
-            return 1; // 默认弹道数量为1
         }
     }
-#endregion
 
-#region 穿透力
-    [SerializeField, ChineseLabel("武器穿透力加成")] private int penetrationBonus = 0;
+    #region 子弹数量管理
     /// <summary>
-    /// 武器穿透力加成
+    /// 当前子弹数量
     /// </summary>
-    public int PenetrationBonus => penetrationBonus;
+    private int currentBulletCount=0;
 
     /// <summary>
-    /// 增加武器穿透力加成
-     /// <para> 最终穿透力 = 基础穿透力 + 穿透力加成 </para>
+    /// 获取当前子弹数量
     /// </summary>
-    /// <param name="bonus"></param>
-    public void AddPenetrationBonus(int bonus)
+    public int CurrentBulletCount
     {
-        penetrationBonus += bonus;
-    }
-
-    public int GetFinalPenetration
-    {
+        set
+        {
+            if(currentBulletCount != value)
+            {
+                if(weaponBaseData is GunBaseData gunBaseData)
+                {
+                    value = Mathf.Clamp(value, 0, weaponManager.GetFinalBulletCount(gunBaseData.MaxBulletCount));
+                }
+                int delta = value - currentBulletCount;
+                currentBulletCount = value;
+                if (delta > 0)
+                {
+                    OnBulletCountAdded?.Invoke(delta);
+                }
+                else if (delta < 0)
+                {
+                    OnBulletCountDecreased?.Invoke(-delta);
+                }
+            }
+        }
         get
         {
-            if (weaponBaseData is GunBaseData gunData)
-            {
-                return gunData.BulletPenetration + penetrationBonus;
-            }
-            return 0; // 默认穿透力为0
+            return currentBulletCount;
         }
     }
-#endregion
+
+
+    /// <summary>
+    /// 增加子弹时调用(包括消耗和补充)
+    /// <para>传输增加数</para>
+    /// </summary>
+    public Action<int> OnBulletCountAdded;
+
+    /// <summary>
+    /// 减少子弹时调用
+    /// <para>传输减少子弹数</para>
+    /// </summary>
+    public Action<int> OnBulletCountDecreased;
+
+    /// <summary>
+    /// 回复子弹协程引用
+     /// 以便在武器卸下时停止协程，避免继续补充子弹
+    /// </summary>
+    private Coroutine replenishCoroutine;
+
+    /// <summary>
+    /// 补充子弹 +1
+    /// </summary>
+    private IEnumerator ReplenishBullets()
+    {
+        GunBaseData gunBaseData = weaponBaseData as GunBaseData;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(gunBaseData.BulletReplenishInterval);
+
+            if (!GameManager.Instance.IsPlayerControllable)
+                continue;
+
+            int finalBulletCount = weaponManager.GetFinalBulletCount(gunBaseData.MaxBulletCount);
+
+            if (currentBulletCount < finalBulletCount)
+            {
+                CurrentBulletCount++;
+            }
+        }
+    }
+    #endregion
+
+    public override void OnUnequip()
+    {
+        base.OnUnequip();
+        if(replenishCoroutine != null)
+        {
+            StopCoroutine(replenishCoroutine);
+        }
+    }
+
+    private void OnDisable()
+    {
+        OnUnequip();
+    }
 
 }

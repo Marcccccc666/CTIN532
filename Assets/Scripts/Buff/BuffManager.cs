@@ -65,6 +65,30 @@ public class BuffManager : Singleton<BuffManager>
         }
     }
 
+    #region Buff触发相关
+
+    /// <summary>
+    /// 攻击时触发 Buff 效果
+    /// </summary>
+    public Action<Transform> AttackTriggered;
+
+    /// <summary>
+    /// 攻击命中时触发 Buff 效果
+    /// </summary>
+    public Action<Transform> AttackHitTriggered;
+
+    /// <summary>
+    /// 玩家受伤时触发 Buff 效果
+    /// </summary>
+    public Action<Transform> PlayerDamagedTriggered;
+
+    /// <summary>
+    /// 敌人死亡时触发 Buff 效果
+    /// </summary>
+    public Action<Transform> EnemyKilledTriggered;
+
+    #endregion
+
     private static void Shuffle(List<BuffDefinition> list)
     {
         for (int i = list.Count - 1; i > 0; i--)

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public abstract class BuffDefinition : ScriptableObject
 {
-    [SerializeField] private string buffId;
+    [SerializeField] private int buffId;
     [SerializeField] private string displayName;
     [SerializeField, TextArea] private string description;
 
-    public string BuffId => buffId;
+    public int BuffId => buffId;
     public string DisplayName => displayName;
     public string Description => description;
 

@@ -12,10 +12,7 @@ public class AddPenetration : BuffDefinition
         {
             return;
         }
-
-        if (weaponManager.GetCurrentWeapon is GunData gunData)
-        {
-            gunData.AddPenetrationBonus(penetrationBonus);
-        }
+        
+        weaponManager.AddPenetrationBonus(penetrationBonus);
     }
 }

@@ -9,23 +9,35 @@ public class WeaponManager: Singleton<WeaponManager>
     /// <summary>
     /// 当前武器Prefab数据
     /// </summary>
+    [SerializeField]private WeaponData currentWeaponPrefab;
+
+    /// <summary>
+    /// 当前武器实例
+    /// </summary>
     [SerializeField]private WeaponData currentWeapon;
+
+    /// <summary>
+    /// 获取当前武器实例
+    /// </summary>
+    public WeaponData GetCurrentWeapon => currentWeapon;
 
     [SerializeField, ChineseLabel("武器伤害倍率")] private float damageMultiplier = 1f;
     [SerializeField, ChineseLabel("武器伤害加成")] private int damageBonus = 0;
 
     [SerializeField, ChineseLabel("攻击间隔减少(秒)")] private float attackIntervalBonus = 0f;
+    
+    [SerializeField, ChineseLabel("武器弹道数加成")] private int ballisticsBonus = 0;
+    
+    [SerializeField, ChineseLabel("武器穿透力加成")] private int penetrationBonus = 0;
 
-    /// <summary>
-    /// 获取当前武器
-    /// </summary>
-    public WeaponData GetCurrentWeapon => currentWeapon;
-
+     [SerializeField, ChineseLabel("子弹上限加成")] private int bulletCountBonus = 0;
+    
+    private PoolManager poolManager => PoolManager.Instance;
 #region 武器切换
     /// <summary>
-    /// 武器切换事件，参数为新武器数据
+    /// 武器切换事件，参数为（新武器Prefab数据， 新武器实例）
     /// </summary>
-    public Action<WeaponData> OnWeaponSwitched;
+    public Action<WeaponData, WeaponData> OnWeaponSwitched;
 
     /// <summary>
     /// 切换武器
@@ -36,9 +48,27 @@ public class WeaponManager: Singleton<WeaponManager>
         {
             return; // 如果切换到同一把武器，直接返回
         }
-        currentWeapon = newWeapon;
-        OnWeaponSwitched?.Invoke(newWeapon);
+
+        if(currentWeapon != null)
+        {
+            poolManager.Release(currentWeaponPrefab, currentWeapon); // 回收当前武器实例
+        }
+
+        currentWeaponPrefab = newWeapon;
+
+        currentWeapon = poolManager.Spawn(
+            prefab: currentWeaponPrefab,
+            position: transform.position,
+            rotation: transform.rotation,
+            parent: transform,
+            defaultCapacity: 1,
+            maxSize: 1,
+            autoActive: true); // 先生成但不激活
+
+        OnWeaponSwitched?.Invoke(currentWeaponPrefab, currentWeapon);
     }
+
+    
 #endregion
 
 #region 升级武器
@@ -117,5 +147,84 @@ public class WeaponManager: Singleton<WeaponManager>
     {
         attackIntervalBonus += bonus;
     }
+
+    #region 弹道
+
+    /// <summary>
+    /// 武器弹道数加成
+    /// </summary>
+    public int BallisticsBonus => ballisticsBonus;
+
+    /// <summary>
+    /// 增加武器弹道数加成
+     /// <para> 最终弹道数 = 基础弹道数 + 弹道数加成 </para>
+    /// </summary>
+    /// <param name="bonus"></param>
+    public void AddBallisticsBonus(int bonus)
+    {
+        ballisticsBonus += bonus;
+    }
+
+    
+    ///<summary>
+    /// 获取武器弹道数
+    /// </summary>
+    public int GetFinalBallisticsCount(int baseCount)
+    {
+        int finalBallisticsCount = baseCount + ballisticsBonus;
+        return Mathf.Max(1, finalBallisticsCount); // 最少1条弹道
+    }
+#endregion
+
+#region 穿透力
+    /// <summary>
+    /// 武器穿透力加成
+    /// </summary>
+    public int PenetrationBonus => penetrationBonus;
+
+    /// <summary>
+    /// 增加武器穿透力加成
+     /// <para> 最终穿透力 = 基础穿透力 + 穿透力加成 </para>
+    /// </summary>
+    /// <param name="bonus"></param>
+    public void AddPenetrationBonus(int bonus)
+    {
+        penetrationBonus += bonus;
+    }
+
+    /// <summary>
+    /// 获取武器穿透力
+    /// <para> 最终穿透力 = 基础穿透力 + 穿透力加成 </para>
+    /// </summary>
+    /// <param name="basePenetration"> 武器基础穿透力 </param>
+    /// <returns></returns>
+    public int GetFinalPenetration(int basePenetration)
+    {
+        int finalPenetration = basePenetration + penetrationBonus;
+        return Mathf.Max(0, finalPenetration); // 最少0穿透力
+    }
+#endregion
+
+    #region 子弹数（仅枪械使用）
+
+    /// <summary>
+    /// 增加子弹上限加成
+    /// </summary>
+    public void AddBulletCountBonus(int bonus)
+    {
+        bulletCountBonus += bonus;
+    }
+
+    /// <summary>
+    /// 最终子弹数
+    /// <para> 最终子弹数 = 基础子弹数 + 子弹数加成 </para>
+    /// </summary>
+    public int GetFinalBulletCount(int baseBulletCount)
+    {
+        int finalBulletCount = baseBulletCount + bulletCountBonus;
+        return Mathf.Max(1, finalBulletCount); // 最少1发子弹
+    }
+
+    #endregion
 #endregion
 }
