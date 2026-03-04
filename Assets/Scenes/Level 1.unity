@@ -3154,7 +3154,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.49542, y: 5.70238, z: -10}
+  m_LocalPosition: {x: 9.349821, y: -11.192692, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10541,7 +10541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterCreator
   characterPrefab: {fileID: 4104937605216861881, guid: 2ec49ab86fdfa5f40a3954961d5d3ce8, type: 3}
   spawnPoint: {fileID: 325912607}
-  testWeaponData: {fileID: 5261869638763488654, guid: 551c5734d2ca4be4db7ce4f0aad5389b, type: 3}
+  testWeaponData: {fileID: 552668349250534157, guid: a3aa2128ac5849145a847098f294467a, type: 3}
 --- !u!4 &1958273015
 Transform:
   m_ObjectHideFlags: 0

@@ -68,9 +68,19 @@ public class BuffManager : Singleton<BuffManager>
     #region Buff触发相关
 
     /// <summary>
+    /// 攻击前触发
+    /// </summary>
+    public Action<WeaponData> BeforeAttackTriggered;
+
+    /// <summary>
     /// 攻击时触发 Buff 效果
     /// </summary>
     public Action<Transform> AttackTriggered;
+
+    /// <summary>
+    /// 攻击后触发 Buff 效果
+    /// </summary>
+    public Action<WeaponData> AfterAttackTriggered;
 
     /// <summary>
     /// 攻击命中时触发 Buff 效果

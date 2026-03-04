@@ -25,6 +25,7 @@ public abstract class WeaponBase : MonoBehaviour
         {
             OnValidate();
         }
+        WeaponData.SetWeaponController(this);
     }
 
     protected virtual void OnEnable()
@@ -56,9 +57,9 @@ public abstract class WeaponBase : MonoBehaviour
     /// <summary>
     /// 武器攻击方法
     /// </summary>
-    protected virtual void Attack()
+    public virtual void Attack()
     {
-        buffManager.AttackTriggered.Invoke(transform);
+        
     }
 
 #region UNITY_EDITOR

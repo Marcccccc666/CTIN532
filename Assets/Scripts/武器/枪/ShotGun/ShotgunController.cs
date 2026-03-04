@@ -10,25 +10,8 @@ public class ShotgunController : GunController
         base.Awake();
     }
 
-    protected override void Update()
-    {
-        if(!gameManager.IsPlayerControllable)
-        {
-            return;
-        }
-        base.Update();
 
-        if(inputManager.CurrentMouseState == MouseState.Press || inputManager.CurrentMouseState == MouseState.Hold)
-        {
-            if(MultiTimerManager.IsDownTimerComplete("GunAttackCooldown") )
-            {
-                Attack();
-                MultiTimerManager.Start_DownTimer("GunAttackCooldown", weaponManager.GetFinalAttackInterval(M_gunData.WeaponBaseData.AttackInterval));
-            }
-        }
-    }
-
-    protected override void Attack()
+    public override void Attack()
     {
         if(gunAnimator != null)
         {
@@ -40,12 +23,12 @@ public class ShotgunController : GunController
         int bulletCount = weaponManager.GetFinalBallisticsCount(gunBaseData.InitialBallisticsCount);
         int finalDamage = weaponManager.GetFinalDamage(gunBaseData.WeaponDamage);
         int finalPenetration = weaponManager.GetFinalPenetration(gunBaseData.BulletPenetration);
+        float finalBulletSpeed = weaponManager.GetFinalBulletSpeed(gunBaseData.BulletSpeed);
 
         BulletAttack[] bullets = new BulletAttack[bulletCount];
 
         // 计算每个子弹的向量
-        Vector3[] instancePositions = new Vector3[bulletCount];
-        instancePositions = BulletMovement.BulletMoveTypes(
+        Vector3[] instancePositions = BulletMovement.BulletMoveTypes(
             bulletSpawnPoint: bulletSpawnPoint,
             bulletType: gunBaseData.BallisticsType,
             intervalDistance: gunBaseData.BulletIntervalDistance,
@@ -68,7 +51,7 @@ public class ShotgunController : GunController
                 autoActive:false);
             bullets[i].Initialize(
                 direction: instancePositions[i].normalized,
-                speed: gunBaseData.BulletSpeed,
+                speed: finalBulletSpeed,
                 damage: finalDamage,
                 penetration: finalPenetration
             );

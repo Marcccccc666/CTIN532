@@ -10,6 +10,18 @@ public class WeaponData : MonoBehaviour
     /// </summary>
     public WeaponBaseData WeaponBaseData => weaponBaseData;
 
+    [SerializeField, ChineseLabel("武器控制器")] protected WeaponBase weaponController;
+
+    /// <summary>
+    /// 获取武器控制器
+    /// </summary>
+    public WeaponBase WeaponController => weaponController;
+
+    public void SetWeaponController(WeaponBase controller)
+    {
+        weaponController = controller;
+    }
+
     /// <summary>
     /// 初始化武器数据
     /// </summary>

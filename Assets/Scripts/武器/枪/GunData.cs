@@ -78,6 +78,20 @@ public class GunData : WeaponData
     /// </summary>
     private Coroutine replenishCoroutine;
 
+    private bool isConsumingBullet = true;
+    /// <summary>
+    /// 本次是否消耗子弹
+    /// 用于抢buff
+    /// </summary>
+    /// <returns> true 消耗子弹 
+    /// <para> false 不消耗</para>
+    /// </returns>
+    public bool IsConsumingBullet
+    {
+        get => isConsumingBullet;
+        set => isConsumingBullet = value;
+    }
+
     /// <summary>
     /// 补充子弹 +1
     /// </summary>

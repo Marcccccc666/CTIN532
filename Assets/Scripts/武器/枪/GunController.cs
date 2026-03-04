@@ -44,8 +44,16 @@ public class GunController : WeaponBase
                     return; // 没有子弹，无法攻击
                 }
 
-                M_gunData.CurrentBulletCount = currentBulletCount - 1; // 消耗一发子弹
+                buffManager.BeforeAttackTriggered?.Invoke(M_gunData);
+                if(M_gunData.IsConsumingBullet)
+                {
+                    M_gunData.CurrentBulletCount = currentBulletCount - 1; // 消耗一发子弹
+                }
+                
+                buffManager.AttackTriggered?.Invoke(bulletSpawnPoint);
                 Attack();
+                buffManager.AfterAttackTriggered?.Invoke(M_gunData);
+
                 if(M_attackAudioClip != null)
                 {
                     audioManager.PlaySFX(M_attackAudioClip);
@@ -57,8 +65,9 @@ public class GunController : WeaponBase
 
 
 
-    protected override void Attack()
+    public override void Attack()
     {
+        base.Attack();
         if(gunAnimator != null)
         {
             gunAnimator.Play(shootAnimationHash);
@@ -68,6 +77,7 @@ public class GunController : WeaponBase
         int bulletCount = weaponManager.GetFinalBallisticsCount(gunBaseData.InitialBallisticsCount);
         int finalDamage = weaponManager.GetFinalDamage(gunBaseData.WeaponDamage);
         int finalPenetration = weaponManager.GetFinalPenetration(gunBaseData.BulletPenetration);
+        float finalBulletSpeed = weaponManager.GetFinalBulletSpeed(gunBaseData.BulletSpeed);
         
         BulletAttack[] bullets = new BulletAttack[bulletCount];
         
@@ -89,11 +99,9 @@ public class GunController : WeaponBase
                 position:instancePositions[i], 
                 rotation:bulletSpawnPoint.rotation, 
                 autoActive:false);
-            bullets[i].Initialize(bulletSpawnPoint.right, gunBaseData.BulletSpeed, finalDamage, finalPenetration);
+            bullets[i].Initialize(bulletSpawnPoint.right, finalBulletSpeed, finalDamage, finalPenetration);
             poolManager.Activate(gunBaseData.BulletPrefab, bullets[i]);
         }
-
-        buffManager.AttackTriggered?.Invoke(bulletSpawnPoint);
 
     }
 
