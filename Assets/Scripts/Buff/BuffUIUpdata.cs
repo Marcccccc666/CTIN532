@@ -21,8 +21,8 @@ public class BuffUIUpdata : MonoBehaviour
         }
         else
         {
-            buffNameText.text = "无";
-            buffDescriptionText.text = "无描述";
+            buffNameText.text = "none";
+            buffDescriptionText.text = "none";
         }
     }
 

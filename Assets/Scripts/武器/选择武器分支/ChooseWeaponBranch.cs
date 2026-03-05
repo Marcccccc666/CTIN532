@@ -4,11 +4,15 @@ public class ChooseWeaponBranch : MonoBehaviour
 {
     [SerializeField, ChineseLabel("分支选择界面")] private GameObject branchSelectionUI;
 
-    [SerializeField, ChineseLabel("分支卡")] private WeaponBranch[] weaponBranches;
+    [SerializeField, ChineseLabel("分支卡")] private WeaponBranchCard[] weaponBranchCards;
 
     private WeaponData currentWeaponDataProfab;
     private WeaponManager weaponManager => WeaponManager.Instance;
     private BuffManager buffManager => BuffManager.Instance;
+
+    /// <summary>
+    /// 选中的武器分支索引
+    /// </summary>
     private int selectedBranchIndex = -1;
 
     /// <summary>
@@ -53,18 +57,18 @@ public class ChooseWeaponBranch : MonoBehaviour
 
     private void UpdateSelectionUI(WeaponData weaponDataPrefab, WeaponData newWeapon)
     {
-        if(newWeapon.WeaponBaseData is InitialGunData initialGunData)
+        if(newWeapon.WeaponBaseData is IInitialWeapon initialWeaponData)
         {
-            GunBrach[] gunBranches = initialGunData.GunBrachs;
+            WeaponBranch[] weaponBranches = initialWeaponData.WeaponBrachs;
             for (int i = 0; i < weaponBranches.Length; i++)
             {
-                if (i < gunBranches.Length)
+                if (i < weaponBranches.Length)
                 {
-                    weaponBranches[i].SetWeaponBranch(gunBranches[i].Data, gunBranches[i].Type);
+                    weaponBranchCards[i].SetWeaponBranch(weaponBranches[i].Data, weaponBranches[i].Type);
                 }
                 else
                 {
-                    weaponBranches[i].SetWeaponBranch(null, default);
+                    weaponBranchCards[i].SetWeaponBranch(null, default);
                 }
             }
         }
@@ -77,9 +81,9 @@ public class ChooseWeaponBranch : MonoBehaviour
     public void SelectWeaponBranch(int index)
     {
         selectedBranchIndex = index;
-        for (int i = 0; i < weaponBranches.Length; i++)
+        for (int i = 0; i < weaponBranchCards.Length; i++)
         {
-            weaponBranches[i].SetSelectedIndicator(i == index);
+            weaponBranchCards[i].SetSelectedIndicator(i == index);
         }
     }
 
@@ -88,7 +92,7 @@ public class ChooseWeaponBranch : MonoBehaviour
         // 切换到选中的武器分支
         if (selectedBranchIndex >= 0 && weaponManager.GetCurrentWeapon.WeaponBaseData is InitialGunData initialGunData)
         {
-            GunBrach selectedBranch = initialGunData.GunBrachs[selectedBranchIndex];
+            WeaponBranch selectedBranch = initialGunData.WeaponBrachs[selectedBranchIndex];
             weaponManager.SwitchWeapon(selectedBranch.Data);
         }
         // 结束升级状态，关闭分支选择界面

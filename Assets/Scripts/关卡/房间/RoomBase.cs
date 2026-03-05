@@ -46,12 +46,7 @@ public abstract class RoomBase : MonoBehaviour
     /// <para> 默认实现为切换相机，子类可重写实现其他逻辑 </para>
     /// </summary>
     public virtual void PlayerEnterRoom()
-    {
-        if(M_StateMachine.ActiveStateName != RoomState.Unvisited)
-        {
-            return;
-        }
-        
+    {   
         if(RoomCamera)
         {
             cameraManager.SetCurrentCamera(RoomCamera);

@@ -58,6 +58,7 @@ public class WeaponManager: Singleton<WeaponManager>
 
         currentWeaponPrefab = newWeapon;
 
+         // 根据新武器设置Buff池数据
         currentWeapon = poolManager.Spawn(
             prefab: currentWeaponPrefab,
             position: transform.position,

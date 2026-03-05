@@ -4,11 +4,62 @@ using UnityEngine;
 
 public class BuffManager : Singleton<BuffManager>
 {
+    #region Buff池
     /// <summary>
-    /// Buff池
+    /// 通用Buff池
     /// </summary>
-    [SerializeField] private BuffPool buffPool;
+    [SerializeField] private BuffPool normalBuffPool;
 
+    
+    [SerializeField] private List<BuffDefinition> InitialWeaponBuffPool;
+    /// <summary>
+    /// 基础武器Buff池
+    /// </summary>
+    public List<BuffDefinition> GetInitialWeaponBuffPool => InitialWeaponBuffPool;
+
+    /// <summary>
+    /// 设置基础武器Buff池数据
+    /// </summary>
+    /// <param name="buffPool"> 基础武器Buff池 </param>
+    public void SetInitialWeaponBuffPool(List<BuffDefinition> buffPool)
+    {
+        if(InitialWeaponBuffPool == null)
+        {
+            InitialWeaponBuffPool = buffPool;
+        }
+        else
+        {
+            InitialWeaponBuffPool?.AddRange(buffPool);
+        }
+    }
+
+    
+    [SerializeField] private List<BuffDefinition> weaponSpecificBuffPool;
+    /// <summary>
+    /// 武器特定Buff池
+    /// </summary>
+    public List<BuffDefinition> GetWeaponSpecificBuffPool => weaponSpecificBuffPool;
+
+    /// <summary>
+    /// 设置武器特定Buff池数据
+    /// </summary>
+    /// <param name="buffPool"> 武器特定Buff池 </param>
+    public void SetWeaponSpecificBuffPool(List<BuffDefinition> buffPool)
+    {
+        if(weaponSpecificBuffPool == null)
+        {
+            weaponSpecificBuffPool = buffPool;
+        }
+        else
+        {
+            weaponSpecificBuffPool?.AddRange(buffPool);
+        }
+    }
+
+
+     #endregion
+
+    #region 选择buff相关
     [SerializeField, ChineseLabel("玩家选择第几个 Buff")] private int selectedBuffIndex = -1;
     /// <summary>
     /// 玩家选择第几个 Buff
@@ -56,14 +107,19 @@ public class BuffManager : Singleton<BuffManager>
     /// </summary>
     public void RequestCreateRandomBuff()
     {
-        List<BuffDefinition> availableBuffs = new List<BuffDefinition>(buffPool.Buffs);
-        Shuffle(availableBuffs);
+        List<BuffDefinition> combinedBuffs = new();
+        combinedBuffs?.AddRange(normalBuffPool.Buffs);
+        combinedBuffs?.AddRange(InitialWeaponBuffPool);
+        combinedBuffs?.AddRange(weaponSpecificBuffPool);
+
+        Shuffle(combinedBuffs);
 
         for (int i = 0; i < currentSelection.Length; i++)
         {
-            currentSelection[i] = availableBuffs[i];
+            currentSelection[i] = combinedBuffs[i];
         }
     }
+    #endregion
 
     #region Buff触发相关
 

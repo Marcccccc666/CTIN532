@@ -3211,7 +3211,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 23.985981, y: 5.710147, z: -10}
+  m_LocalPosition: {x: -7.49542, y: 5.70238, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3383,7 +3383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChooseWeaponBranch
   branchSelectionUI: {fileID: 213916504}
-  weaponBranches:
+  weaponBranchCards:
   - {fileID: 1863973166}
   - {fileID: 329539259}
 --- !u!222 &554923054
@@ -9696,7 +9696,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335bcda87b537da41b380078ff7466b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuffManager
-  buffPool: {fileID: 11400000, guid: 8f32fa55a693647478b20991418c4c9c, type: 2}
+  normalBuffPool: {fileID: 11400000, guid: 8f32fa55a693647478b20991418c4c9c, type: 2}
+  InitialWeaponBuffPool: []
+  weaponSpecificBuffPool: []
   selectedBuffIndex: -1
 --- !u!4 &1686465502
 Transform:

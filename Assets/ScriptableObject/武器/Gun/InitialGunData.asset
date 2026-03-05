@@ -25,8 +25,9 @@ MonoBehaviour:
   bulletPenetration: 0
   maxBulletCount: 5
   bulletReplenishInterval: 2
-  gunBrachs:
+  weaponBrachs:
   - Type: 0
     Data: {fileID: 552668349250534157, guid: a3aa2128ac5849145a847098f294467a, type: 3}
   - Type: 1
     Data: {fileID: 3370740047181341185, guid: 9452c2f88e707d14a9fee8bbc61a3659, type: 3}
+  WeaponSpecificBuffs: {fileID: 11400000, guid: 1e58761a585a2c4428847437b10e23d1, type: 2}

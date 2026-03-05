@@ -25,8 +25,11 @@ public class RoomCleared : BaseState<RoomState>
         base.OnEnter();
 
         // 回收房间内的敌人子弹
-        poolManager.ReleasePool(enemyBulletProfab);
-        
+        if(enemyBulletProfab != null)
+        {
+            poolManager.ReleasePool(enemyBulletProfab);
+        }
+
         // 开门
         battleRoomController.SetLockRoom(false);
 

@@ -25,5 +25,16 @@ public static class ObjectMove
         Vector3 movement = direction.normalized * speed * Time.deltaTime;
         Object.position += movement;
     }
+
+    /// <summary>
+    /// 碰撞反弹后，对象的移动方向
+    /// </summary>
+    /// <param name="currentDirection">当前移动方向</param>
+    /// <param name="collisionNormal">碰撞法线</param>
+    /// <returns>反弹后的移动方向</returns>
+    public static Vector2 ReflectDirection(Vector2 currentDirection, Vector2 collisionNormal)
+    {
+        return Vector2.Reflect(currentDirection, collisionNormal);
+    }
     
 }

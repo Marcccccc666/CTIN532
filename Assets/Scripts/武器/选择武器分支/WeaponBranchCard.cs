@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class WeaponBranch : MonoBehaviour
+public class WeaponBranchCard : MonoBehaviour
 {
     [SerializeField, ChineseLabel("武器名称")] private TextMeshProUGUI weaponNameText;
 
@@ -17,12 +17,12 @@ public class WeaponBranch : MonoBehaviour
     /// <summary>
     /// 设置武器分支显示内容
     /// </summary>
-    public void SetWeaponBranch(WeaponData weaponData, GunType gunType)
+    public void SetWeaponBranch(WeaponData weaponData, WeaponType weaponType)
     {
         this.weaponData = weaponData;
         if (weaponData != null)
         {
-            weaponNameText.text = gunType.ToString();
+            weaponNameText.text = weaponType.ToString();
         }
         else
         {

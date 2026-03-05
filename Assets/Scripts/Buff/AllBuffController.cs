@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AllBuffController : MonoBehaviour
@@ -13,6 +14,7 @@ public class AllBuffController : MonoBehaviour
     [SerializeField, ChineseLabel("3个BuffUI更新脚本")] private BuffUIUpdata[] buffUIUpdatas;
 
     private BuffManager buffManager => BuffManager.Instance;
+    private WeaponManager weaponManager => WeaponManager.Instance;
     private CharacterManager characterManager => CharacterManager.Instance;
     private GameManager gameManager => GameManager.Instance;
 
@@ -25,7 +27,6 @@ public class AllBuffController : MonoBehaviour
         {
             buffPanel.SetActive(false);
         }
-
         OnNewBuffListReceived();
     }
 
@@ -34,7 +35,20 @@ public class AllBuffController : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
+        weaponManager.OnWeaponSwitched += SetBuffPollData;
         buffManager.OpenBuffSelectionUI += OpenBuffSelectionUI;
+    }
+
+    void OnDisable()
+    {
+        if(weaponManager)
+        {
+            weaponManager.OnWeaponSwitched -= SetBuffPollData;
+        }
+        if(buffManager)
+        {
+            buffManager.OpenBuffSelectionUI -= OpenBuffSelectionUI;
+        }
     }
 
     /// <summary>
@@ -75,6 +89,32 @@ public class AllBuffController : MonoBehaviour
             BuffDefinition buffDefinition = buffManager.CurrentSelection[i];
             buffUIUpdatas[i].UpdateBuffUI(buffDefinition);
         }
+    }
+#endregion
+
+#region 更新Buff池数据
+    /// <summary>
+    /// 切换武器时更新 Buff 池数据
+    /// </summary> <param name="weaponProfab"> 武器预设 </param> <param name="weaponData"> 武器数据 </param>
+    public void SetBuffPollData(WeaponData weaponProfab,WeaponData weaponData)
+    {
+        WeaponBaseData weaponBaseData = weaponData.WeaponBaseData;
+        bool IsInitialWeapon = weaponBaseData is IInitialWeapon;
+        if(IsInitialWeapon)
+        {
+            if(weaponBaseData  is IWeaponSpecificBuff weaponSpecificBuffData)
+            {
+                buffManager.SetInitialWeaponBuffPool(new List<BuffDefinition>(weaponSpecificBuffData.GetWeaponSpecificBuffs.Buffs));
+            }
+        }
+        else
+        {
+            if(weaponBaseData is IWeaponSpecificBuff weaponSpecificBuffData)
+            {
+                buffManager.SetWeaponSpecificBuffPool(new List<BuffDefinition>(weaponSpecificBuffData.GetWeaponSpecificBuffs.Buffs));
+            }
+        }
+        OnNewBuffListReceived();
     }
 #endregion
 
