@@ -53,7 +53,10 @@ public class CharacterCreator : MonoBehaviour
         if(currentCharacterData)
         {
             IsCharacterOpen = currentCharacterData.gameObject.activeInHierarchy;
+            Debug.Log($"当前角色数据存在，IsCharacterOpen: {IsCharacterOpen}");
+            characterManager.transform.position = spawnPoint.position;
         }
+
         if (!currentCharacterData || !IsCharacterOpen)
         {
             currentCharacterData = poolManager.Spawn(

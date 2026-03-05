@@ -34,7 +34,7 @@ public class RoomCleared : BaseState<RoomState>
         battleRoomController.SetLockRoom(false);
 
         int currentHealth = characterManager.GetCurrentPlayerCharacterData.CurrentHealth;
-        if(isFirstRoom)
+        if(isFirstRoom && currentHealth > 0)
         {
             weaponManager.UpgradeCurrentWeaponInvoke();
         }

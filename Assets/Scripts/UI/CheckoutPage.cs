@@ -12,6 +12,8 @@ public class CheckoutPage : MonoBehaviour
     private CharacterManager characterManager => CharacterManager.Instance;
 
     private CharacterDate subscribedCharacter;
+
+    private GameManager gameManager => GameManager.Instance;
    
 
     void Awake()
@@ -101,22 +103,22 @@ public class CheckoutPage : MonoBehaviour
 
     public void RestartGame()
     {
-        enemyManager.ClearEnemyData();
-        ResetSingletons();
+        GameManager.Instance.GameResetAction?.Invoke();
+        //ResetSingletons();
     }
 
     
 
-    private void ResetSingletons()
-    {
-        DestroyIfExists<GameManager>();
-        DestroyIfExists<EnemyManager>();
-        DestroyIfExists<CharacterManager>();
-        DestroyIfExists<BuffManager>();
-        DestroyIfExists<WeaponManager>();
-        DestroyIfExists<InputManager>();
-        DestroyIfExists<MultiTimerManager>();
-    }
+    // private void ResetSingletons()
+    // {
+    //     DestroyIfExists<GameManager>();
+    //     DestroyIfExists<EnemyManager>();
+    //     DestroyIfExists<CharacterManager>();
+    //     DestroyIfExists<BuffManager>();
+    //     DestroyIfExists<WeaponManager>();
+    //     DestroyIfExists<InputManager>();
+    //     DestroyIfExists<MultiTimerManager>();
+    // }
 
     private void DestroyIfExists<T>() where T : MonoBehaviour
     {

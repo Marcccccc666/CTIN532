@@ -44,6 +44,7 @@ public class WeaponManager: Singleton<WeaponManager>
     protected override void OnRest()
     {
         // 回收当前武器实例
+        isUpgradeInProgress = false;
         poolManager.Release(currentWeaponPrefab, currentWeapon);
     }
 
