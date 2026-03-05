@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -35,6 +36,8 @@ public class WeaponManager: Singleton<WeaponManager>
     [SerializeField, ChineseLabel("子弹速度加成")] private float bulletSpeedBonus = 0f;
 
     [SerializeField, ChineseLabel("子弹反弹加成")] private int bulletBounceBonus = 0;
+
+    [SerializeField, ChineseLabel("爆炸伤害")] private int explosionDamage = 0;
     
     private PoolManager poolManager => PoolManager.Instance;
 #region 武器切换
@@ -107,6 +110,28 @@ public class WeaponManager: Singleton<WeaponManager>
     }
 
 
+#endregion
+
+#region 爆炸数值
+    /// <summary>
+    /// 设置爆炸伤害
+    /// </summary>
+    public void SetExplosionDamage(int damage)
+    {
+        explosionDamage = damage;
+    }
+
+    /// <summary>
+    /// 获取爆炸伤害
+    /// </summary>
+    /// <returns></returns>
+    public int GetExplosionDamage
+    {
+        get
+        {
+            return Mathf.Max(1, explosionDamage);
+        }
+    }
 #endregion
 
 #region 武器数值

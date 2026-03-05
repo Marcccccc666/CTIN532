@@ -138,6 +138,7 @@ public class BulletAttack : MonoBehaviour, IPoolable<BulletAttack>
     private void OnResumed()
     {
         RG2D.linearVelocity = chachedVelocity;
+        chachedVelocity = Vector2.zero;
     }
 
     public void SetPool(IObjectPool<BulletAttack> pool)
@@ -151,6 +152,11 @@ public class BulletAttack : MonoBehaviour, IPoolable<BulletAttack>
     public void Release()
     {
         RG2D.linearVelocity = Vector2.zero;
+        if(GameManager)
+        {
+            GameManager.GamePausedAction -= OnPaused;
+            GameManager.GameResumedAction -= OnResumed;
+        }
         pool.Release(this);
     }
 

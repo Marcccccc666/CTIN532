@@ -5,7 +5,7 @@ public class PoolManager : Singleton<PoolManager>
 {
     private Dictionary<Component, IGameObjectPool> pools = new();
 
-    private GameObjectPool<T> GetOrCreatePool<T>(T prefab, int defaultCapacity = 20, int maxSize = 100)
+    public GameObjectPool<T> GetOrCreatePool<T>(T prefab, int defaultCapacity = 20, int maxSize = 100)
         where T : Component
     {
         if (!pools.TryGetValue(prefab, out var poolObj))

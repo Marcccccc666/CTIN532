@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -11,6 +12,8 @@ public class CharacterCreator : MonoBehaviour
 
     #if UNITY_EDITOR
     [SerializeField, ChineseLabel("测试武器数据")] private WeaponData testWeaponData;
+
+    [SerializeField, ChineseLabel("测试Buff数据")] private List<BuffDefinition> testBuffData;
     #endif
 
     private PoolManager poolManager => PoolManager.Instance;
@@ -25,6 +28,14 @@ public class CharacterCreator : MonoBehaviour
             if(!currentCharacterData && testWeaponData != null)
             {
                 weaponManager.SwitchWeapon(testWeaponData);
+            }
+
+            if(testBuffData != null && testBuffData.Count > 0)
+            {
+                foreach(var buff in testBuffData)
+                {
+                    buff.Apply();
+                }
             }
 
         #endif

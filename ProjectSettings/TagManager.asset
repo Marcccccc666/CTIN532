@@ -68,5 +68,8 @@ TagManager:
   - name: Obstacle
     uniqueID: 1757316865
     locked: 0
+  - name: "\u4E34\u65F6\u53EC\u5524\u7269"
+    uniqueID: 1599367041
+    locked: 0
   m_RenderingLayers:
   - Default

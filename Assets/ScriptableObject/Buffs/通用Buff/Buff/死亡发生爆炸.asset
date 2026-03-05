@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 759c5e57e786d7b4c889a2d3d3b4f703, type: 3}
+  m_Name: "\u6B7B\u4EA1\u53D1\u751F\u7206\u70B8"
+  m_EditorClassIdentifier: Assembly-CSharp::DeathExplosionBuff
+  buffId: 0
+  displayName: Explosion
+  description: Enemies explode on death, dealing damage to nearby enemies.
+  explosionDamage: 2
+  explosionPrefab: {fileID: 7203149877748842602, guid: e77c2c6fe01dc804e8eeda4b13cc6bb3, type: 3}
