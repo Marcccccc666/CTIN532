@@ -97,6 +97,12 @@ public class DamageHitFeedback : MonoBehaviour
         }
 
         ResolveReferences();
+
+        if (flashCoroutine != null)
+        {
+            StopFlashAndRestore();
+        }
+
         CaptureFlashSnapshots(activeFlashSnapshots);
         if (activeFlashSnapshots.Count == 0)
         {
@@ -106,11 +112,6 @@ public class DamageHitFeedback : MonoBehaviour
                 Debug.LogWarning($"{name} 未找到可闪白的 SpriteRenderer，请检查挂载层级或手动指定 flashRenderers。", this);
             }
             return;
-        }
-
-        if (flashCoroutine != null)
-        {
-            StopFlashAndRestore();
         }
 
         ApplyFlash(activeFlashSnapshots);

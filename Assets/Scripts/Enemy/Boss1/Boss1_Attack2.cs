@@ -10,7 +10,6 @@ public class Boss1_Attack2 : BaseState<Boss1HFSM.Boss1StateID>
     private int dashesCompleted;
 
     private Vector2 dashDirection;
-    private Vector2 dashStartPosition;
     private bool isDashing;
 
     private DownTimer subStateTimer;
@@ -64,7 +63,7 @@ public class Boss1_Attack2 : BaseState<Boss1HFSM.Boss1StateID>
                     sideBulletTimer.StartTimer();
                 }
 
-                if (HasDashReachedDistance())
+                if (subStateTimer.IsComplete())
                 {
                     StopDash();
                     dashesCompleted++;
@@ -122,19 +121,15 @@ public class Boss1_Attack2 : BaseState<Boss1HFSM.Boss1StateID>
     private void StartDash()
     {
         dashDirection = boss.GetDirectionToPlayer();
-        dashStartPosition = boss.Rb2D.position;
         isDashing = true;
+        subStateTimer.ResetTimer(boss.Attack2DashDuration);
+        subStateTimer.StartTimer();
     }
 
     private void StopDash()
     {
         isDashing = false;
         boss.Rb2D.linearVelocity = Vector2.zero;
-    }
-
-    private bool HasDashReachedDistance()
-    {
-        return Vector2.Distance(dashStartPosition, boss.Rb2D.position) >= boss.Attack2DashDistance;
     }
 
     private void FireSideBullets()

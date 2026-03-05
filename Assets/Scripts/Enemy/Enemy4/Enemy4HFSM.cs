@@ -321,6 +321,7 @@ public class Enemy4HFSM : MonoBehaviour
         if (enemyData == null || enemyData.CurrentHealth > 0)
             return;
 
+        BuffManager.Instance?.EnemyKilledTriggered?.Invoke(transform);
         enemyManager.RemoveEnemyData(gameObject.GetInstanceID());
         gameObject.SetActive(false);
     }

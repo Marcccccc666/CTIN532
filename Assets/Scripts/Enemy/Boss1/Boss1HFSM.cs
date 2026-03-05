@@ -15,7 +15,7 @@ public class Boss1HFSM : MonoBehaviour
     [Header("阶段一 - 攻击2: 冲刺射击")]
     [SerializeField, ChineseLabel("蓄力时长")] private float p1Attack2ChargeUpDuration = 0.8f;
     [SerializeField, ChineseLabel("冲刺速度")] private float p1Attack2DashSpeed = 10f;
-    [SerializeField, ChineseLabel("冲刺距离")] private float p1Attack2DashDistance = 3f;
+    [SerializeField, ChineseLabel("冲刺时长")] private float p1Attack2DashDuration = 1f;
     [SerializeField, ChineseLabel("冲刺间隔")] private float p1Attack2DashInterval = 0.8f;
     [SerializeField, ChineseLabel("冲刺期间子弹发射间隔")] private float p1Attack2SideBulletInterval = 0.15f;
     [SerializeField, ChineseLabel("冲刺次数")] private int p1Attack2DashCount = 3;
@@ -35,7 +35,7 @@ public class Boss1HFSM : MonoBehaviour
     [Header("阶段二 - 攻击2: 冲刺射击(强化)")]
     [SerializeField, ChineseLabel("蓄力时长")] private float p2Attack2ChargeUpDuration = 0.6f;
     [SerializeField, ChineseLabel("冲刺速度")] private float p2Attack2DashSpeed = 12f;
-    [SerializeField, ChineseLabel("冲刺距离")] private float p2Attack2DashDistance = 3f;
+    [SerializeField, ChineseLabel("冲刺时长")] private float p2Attack2DashDuration = 1f;
     [SerializeField, ChineseLabel("冲刺间隔")] private float p2Attack2DashInterval = 0.5f;
     [SerializeField, ChineseLabel("冲刺期间子弹发射间隔")] private float p2Attack2SideBulletInterval = 0.12f;
     [SerializeField, ChineseLabel("冲刺次数")] private int p2Attack2DashCount = 5;
@@ -114,7 +114,7 @@ public class Boss1HFSM : MonoBehaviour
 
     public float Attack2ChargeUpDuration => currentPhase == 1 ? p1Attack2ChargeUpDuration : p2Attack2ChargeUpDuration;
     public float Attack2DashSpeed => currentPhase == 1 ? p1Attack2DashSpeed : p2Attack2DashSpeed;
-    public float Attack2DashDistance => currentPhase == 1 ? p1Attack2DashDistance : p2Attack2DashDistance;
+    public float Attack2DashDuration => currentPhase == 1 ? p1Attack2DashDuration : p2Attack2DashDuration;
     public float Attack2DashInterval => currentPhase == 1 ? p1Attack2DashInterval : p2Attack2DashInterval;
     public float Attack2SideBulletInterval => currentPhase == 1 ? p1Attack2SideBulletInterval : p2Attack2SideBulletInterval;
     public int Attack2TargetDashCount => currentPhase == 1 ? p1Attack2DashCount : p2Attack2DashCount;
@@ -216,12 +216,15 @@ public class Boss1HFSM : MonoBehaviour
             _ => CanSwitchState());
 
         stateMachine.AddTransition(
+            Boss1StateID.Attack1, Boss1StateID.PhaseTransition,
+            _ => ShouldTransitionToPhase2());
+        stateMachine.AddTransition(
             Boss1StateID.Attack1, Boss1StateID.Stun,
             _ => attackComplete);
 
         stateMachine.AddTransition(
             Boss1StateID.Stun, Boss1StateID.PhaseTransition,
-            _ => stunComplete && ShouldTransitionToPhase2());
+            _ => ShouldTransitionToPhase2());
         stateMachine.AddTransition(
             Boss1StateID.Stun, Boss1StateID.Attack2,
             _ => stunComplete && attackCycleIndex == 0);
@@ -230,12 +233,15 @@ public class Boss1HFSM : MonoBehaviour
             _ => stunComplete && attackCycleIndex == 1);
 
         stateMachine.AddTransition(
+            Boss1StateID.Attack2, Boss1StateID.PhaseTransition,
+            _ => ShouldTransitionToPhase2());
+        stateMachine.AddTransition(
             Boss1StateID.Attack2, Boss1StateID.Stun,
             _ => attackComplete);
 
         stateMachine.AddTransition(
             Boss1StateID.Attack3, Boss1StateID.PhaseTransition,
-            _ => attackComplete && ShouldTransitionToPhase2());
+            _ => ShouldTransitionToPhase2());
         stateMachine.AddTransition(
             Boss1StateID.Attack3, Boss1StateID.Attack1,
             _ => attackComplete);
@@ -252,6 +258,7 @@ public class Boss1HFSM : MonoBehaviour
         if (enemyData == null || enemyData.CurrentHealth > 0)
             return;
 
+        BuffManager.Instance?.EnemyKilledTriggered?.Invoke(transform);
         enemyManager.RemoveEnemyData(gameObject.GetInstanceID());
         gameObject.SetActive(false);
     }
@@ -409,7 +416,7 @@ public class Boss1HFSM : MonoBehaviour
     private IEnumerator PhaseTransitionRoutine()
     {
         Time.timeScale = 0f;
-        //CameraShake.Shake(3);
+        CameraShake.Shake(7);
         yield return new WaitForSecondsRealtime(phaseTransitionPauseDuration);
 
         Time.timeScale = 1f;
