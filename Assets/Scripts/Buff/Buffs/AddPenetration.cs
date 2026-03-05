@@ -15,4 +15,15 @@ public class AddPenetration : BuffDefinition
         
         weaponManager.AddPenetrationBonus(penetrationBonus);
     }
+
+    public override void Remove()
+    {
+        WeaponManager weaponManager = WeaponManager.Instance;
+        if (weaponManager == null)
+        {
+            return;
+        }
+        
+        weaponManager.AddPenetrationBonus(-penetrationBonus);
+    }
 }

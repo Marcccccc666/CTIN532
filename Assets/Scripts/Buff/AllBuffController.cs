@@ -27,6 +27,11 @@ public class AllBuffController : MonoBehaviour
         {
             buffPanel.SetActive(false);
         }
+        
+        if(weaponManager.GetCurrentWeapon != null)
+        {
+            SetBuffPollData(weaponManager.GetCurrentWeapon, weaponManager.GetCurrentWeapon);
+        }
         OnNewBuffListReceived();
     }
 

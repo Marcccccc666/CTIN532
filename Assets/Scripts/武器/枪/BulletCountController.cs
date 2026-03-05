@@ -26,6 +26,11 @@ public class BulletCountController : MonoBehaviour
             Destroy(child.gameObject);
         }
         bulletUIInstances?.Clear();
+
+        if(weaponManager.GetCurrentWeapon != null)
+        {
+            UpdateBulletCountUI(weaponManager.GetCurrentWeapon, weaponManager.GetCurrentWeapon);
+        }
     }
 
     private void OnEnable()

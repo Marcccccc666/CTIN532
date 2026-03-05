@@ -40,7 +40,14 @@ public class WeaponManager: Singleton<WeaponManager>
     [SerializeField, ChineseLabel("爆炸伤害")] private int explosionDamage = 0;
     
     private PoolManager poolManager => PoolManager.Instance;
-#region 武器切换
+
+    protected override void OnRest()
+    {
+        // 回收当前武器实例
+        poolManager.Release(currentWeaponPrefab, currentWeapon);
+    }
+
+    #region 武器切换
     /// <summary>
     /// 武器切换事件，参数为（新武器Prefab数据， 新武器实例）
     /// </summary>

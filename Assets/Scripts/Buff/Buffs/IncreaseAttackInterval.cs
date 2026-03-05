@@ -10,4 +10,9 @@ public class IncreaseAttackInterval : BuffDefinition
         WeaponManager.Instance.AddAttackIntervalBonus(attackIntervalBonus);
     }
 
+    public override void Remove()
+    {
+        WeaponManager.Instance.AddAttackIntervalBonus(-attackIntervalBonus);
+    }
+
 }

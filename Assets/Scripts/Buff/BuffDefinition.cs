@@ -11,4 +11,6 @@ public abstract class BuffDefinition : ScriptableObject
     public string Description => description;
 
     public abstract void Apply();
+
+    public abstract void Remove();
 }

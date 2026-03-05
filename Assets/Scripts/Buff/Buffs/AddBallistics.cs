@@ -8,8 +8,13 @@ public class AddBallistics : BuffDefinition
     {
         var weaponManager = WeaponManager.Instance;
         
-        WeaponData currentWeapon = weaponManager.GetCurrentWeapon;
-        
         weaponManager.AddBallisticsBonus(BallisticsCount);
+    }
+
+    public override void Remove()
+    {
+        var weaponManager = WeaponManager.Instance;
+        
+        weaponManager.AddBallisticsBonus(-BallisticsCount);
     }
 }

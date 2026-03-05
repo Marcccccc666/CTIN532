@@ -15,6 +15,11 @@ public class DeathExplosionBuff : BuffDefinition
         BuffManager.Instance.EnemyKilledTriggered += InstanceExplosion;
     }
 
+    public override void Remove()
+    {
+        BuffManager.Instance.EnemyKilledTriggered -= InstanceExplosion;
+    }
+
     private void InstanceExplosion(Transform position)
     {
         PoolManager poolManager = PoolManager.Instance;

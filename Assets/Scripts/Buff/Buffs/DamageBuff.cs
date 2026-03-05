@@ -15,4 +15,15 @@ public class DamageBuff : BuffDefinition
 
         weaponManager.AddDamageBonus(damageBonus);
     }
+
+    public override void Remove()
+    {
+        var weaponManager = WeaponManager.Instance;
+        if (weaponManager == null)
+        {
+            return;
+        }
+
+        weaponManager.AddDamageBonus(-damageBonus);
+    }
 }

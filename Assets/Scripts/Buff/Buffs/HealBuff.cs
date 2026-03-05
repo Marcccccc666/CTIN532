@@ -17,4 +17,19 @@ public class HealBuff : BuffDefinition
         int healAmount = Mathf.Max(0, characterDate.MaxHealth - characterDate.CurrentHealth);
         characterDate.Heal(healAmount);
     }
+
+    public override void Remove()
+    {
+        var characterDate = CharacterManager.Instance.GetCurrentPlayerCharacterData;
+        if (characterDate == null)
+        {
+            return;
+        }
+
+        characterDate.MaxHealth = Mathf.Max(1, characterDate.MaxHealth - maxHealthIncrease);
+        if (characterDate.CurrentHealth > characterDate.MaxHealth)
+        {
+            characterDate.CurrentHealth = characterDate.MaxHealth;
+        }
+    }
 }

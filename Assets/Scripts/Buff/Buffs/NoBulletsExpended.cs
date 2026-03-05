@@ -9,6 +9,11 @@ public class NoBulletsExpended : BuffDefinition
         BuffManager.Instance.BeforeAttackTriggered += OnBeforeAttack;
     }
 
+    public override void Remove()
+    {
+        BuffManager.Instance.BeforeAttackTriggered -= OnBeforeAttack;
+    }
+
     private void OnBeforeAttack(WeaponData weaponData)
     {
         if(weaponData is GunData gunData)

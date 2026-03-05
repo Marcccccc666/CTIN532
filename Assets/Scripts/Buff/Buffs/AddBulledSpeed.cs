@@ -9,4 +9,9 @@ public class AddBulledSpeed : BuffDefinition
     {
         WeaponManager.Instance.AddBulletSpeedBonus(bulletSpeedBonus);
     }
+
+    public override void Remove()
+    {
+        WeaponManager.Instance.AddBulletSpeedBonus(-bulletSpeedBonus);
+    }
 }

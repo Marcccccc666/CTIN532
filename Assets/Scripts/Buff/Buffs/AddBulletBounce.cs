@@ -15,4 +15,15 @@ public class AddBulletBounce : BuffDefinition
 
         weaponManager.AddBulletBounceBonus(bounceBonus);
     }
+
+    public override void Remove()
+    {
+        WeaponManager weaponManager = WeaponManager.Instance;
+        if (weaponManager == null)
+        {
+            return;
+        }
+
+        weaponManager.AddBulletBounceBonus(-bounceBonus);
+    }
 }

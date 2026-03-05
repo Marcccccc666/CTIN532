@@ -168,6 +168,15 @@ public class BuffManager : Singleton<BuffManager>
 
     #endregion
 
+    protected override void OnRest()
+    {
+        for (int i = currentBuffs.Count - 1; i >= 0; i--)
+        {
+            currentBuffs.RemoveAt(i);
+        }
+        currentBuffs.Clear();
+    }
+
     private static void Shuffle(List<BuffDefinition> list)
     {
         for (int i = list.Count - 1; i > 0; i--)

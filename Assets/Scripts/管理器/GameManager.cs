@@ -44,6 +44,11 @@ public class GameManager : Singleton<GameManager>
     }
 #endregion
 
+    /// <summary>
+    /// 游戏重置事件
+    /// </summary>
+    public Action GameResetAction;
+
 #region 玩家可操作
     /// <summary>
     /// 玩家是否可操作

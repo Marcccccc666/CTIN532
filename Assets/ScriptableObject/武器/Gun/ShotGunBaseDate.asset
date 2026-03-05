@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShotGunBaseDate
   m_EditorClassIdentifier: Assembly-CSharp::ShotGunBaseDate
   weaponName: "\u9730\u5F39"
-  weaponDamage: 2
+  weaponDamage: 1
   attackInterval: 1
   weaponRotationSpeed: 1000
   initialBallisticsCount: 3
@@ -24,4 +24,5 @@ MonoBehaviour:
   bulletSpeed: 5
   bulletPenetration: 0
   maxBulletCount: 5
-  bulletReplenishInterval: 1
+  bulletReplenishInterval: 2
+  bulletBounce: 0

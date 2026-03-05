@@ -14,6 +14,18 @@ public class MoveSpeedBuff : BuffDefinition
         }
 
         float newSpeed = target.CurrentMoveSpeed + speedBonus;
-        target.CurrentMoveSpeed = Mathf.Max(0f, newSpeed);
+        target.CurrentMoveSpeed = Mathf.Max(1f, newSpeed);
+    }
+
+    public override void Remove()
+    {
+        var target = CharacterManager.Instance.GetCurrentPlayerCharacterData;
+        if (target == null)
+        {
+            return;
+        }
+
+        float newSpeed = target.CurrentMoveSpeed - speedBonus;
+        target.CurrentMoveSpeed = Mathf.Max(1f, newSpeed);
     }
 }

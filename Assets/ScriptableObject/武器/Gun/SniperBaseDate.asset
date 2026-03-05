@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SniperBaseDate
   m_EditorClassIdentifier: Assembly-CSharp::SniperBaseDate
   weaponName: "\u72D9"
-  weaponDamage: 0
+  weaponDamage: 2
   attackInterval: 0.45
   weaponRotationSpeed: 1000
   initialBallisticsCount: 2
@@ -21,7 +21,8 @@ MonoBehaviour:
   bulletIntervalDistance: 0.2
   fanShapedAngle: 0
   bulletPrefab: {fileID: -3245512310463744862, guid: e6a8d1d9c0cd27747a94af0db40f53f6, type: 3}
-  bulletSpeed: 10
+  bulletSpeed: 15
   bulletPenetration: 2
   maxBulletCount: 8
-  bulletReplenishInterval: 1
+  bulletReplenishInterval: 1.5
+  bulletBounce: 0

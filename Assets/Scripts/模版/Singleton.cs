@@ -46,8 +46,18 @@ public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
         DontDestroyOnLoad(this.gameObject);
     }
 
+    
+    protected virtual void OnEnable()
+    {
+        GameManager.Instance.GameResetAction += OnRest;
+    }
+
     protected virtual void OnDestroy()
     {
+        if(GameManager.Instance)
+        {
+            GameManager.Instance.GameResetAction -= OnRest;
+        }
         if (Instance == this)
         {
             isQuitting = true;
@@ -60,6 +70,11 @@ public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
         {
             isQuitting = true;
         }
+    }
+
+    protected virtual void OnRest()
+    {
+        
     }
 
 }

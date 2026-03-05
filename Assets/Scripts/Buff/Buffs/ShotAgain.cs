@@ -10,6 +10,11 @@ public class ShotAgain : BuffDefinition
         BuffManager.Instance.AfterAttackTriggered += OnAfterAttack;
     }
 
+    public override void Remove()
+    {
+        BuffManager.Instance.AfterAttackTriggered -= OnAfterAttack;
+    }
+
     private void OnAfterAttack(WeaponData attacker)
     {
         WeaponBase weapon = attacker.WeaponController;
