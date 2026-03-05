@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 
 public class CameraManager : Singleton<CameraManager>
@@ -5,7 +6,7 @@ public class CameraManager : Singleton<CameraManager>
     /// <summary>
     /// 当前相机
     /// </summary>
-    private CinemachineCamera currentCamera;
+    public CinemachineCamera currentCamera;
 
     /// <summary>
     /// 默认相机

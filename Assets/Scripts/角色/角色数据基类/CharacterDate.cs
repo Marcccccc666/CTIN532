@@ -93,18 +93,4 @@ public class CharacterDate : ObjectData
         base.OnDamage?.Invoke(damage);
     }
 #endregion
-
-#region 武器
-    private Transform weaponHoldPoint;
-
-    public void SetweaponHoldPoint(Transform point)
-    {
-        weaponHoldPoint = point;
-    }
-
-    public Transform GetWeaponHoldPoint()
-    {
-        return weaponHoldPoint;
-    }
-#endregion
 }

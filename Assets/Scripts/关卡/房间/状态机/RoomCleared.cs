@@ -11,6 +11,7 @@ public class RoomCleared : BaseState<RoomState>
     private CharacterManager characterManager => CharacterManager.Instance;
     protected WeaponManager weaponManager => WeaponManager.Instance;
     private PoolManager poolManager => PoolManager.Instance;
+    private CameraManager cameraManager => CameraManager.Instance;
 
 
     public RoomCleared(BattleRoomController battleRoomController, bool isFirstRoom, EnemyBulletAttack enemyBullProfab) : base()
@@ -32,6 +33,9 @@ public class RoomCleared : BaseState<RoomState>
 
         // 开门
         battleRoomController.SetLockRoom(false);
+
+        // 重置摄像机
+        cameraManager.ResetToDefaultCamera();
 
         int currentHealth = characterManager.GetCurrentPlayerCharacterData.CurrentHealth;
         if(isFirstRoom && currentHealth > 0)

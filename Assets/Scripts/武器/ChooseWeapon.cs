@@ -24,7 +24,10 @@ public class ChooseWeapon : MonoBehaviour
         if (collision.CompareTag("Player") && playerInRange)
         {
             playerInRange = false;
-            inputManager.OnInteractionPressed -= GetWeapon;
+            if(inputManager)
+            {
+                inputManager.OnInteractionPressed -= GetWeapon;
+            }
             interactionHint.SetActive(false);
         }
     }

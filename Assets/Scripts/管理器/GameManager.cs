@@ -56,5 +56,10 @@ public class GameManager : Singleton<GameManager>
     /// <para> Ture 表示玩家可操作, False 表示玩家不可操作 </para>
     /// </summary>
     public bool IsPlayerControllable => !isGamePaused && !BuffManager.Instance.IsBuffSelectionOpen && !WeaponManager.Instance.IsUpgradeInProgress;
-#endregion
+    #endregion
+
+    protected override void OnRest()
+    {
+        isGamePaused = false;
+    }
 }

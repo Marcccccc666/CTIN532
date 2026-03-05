@@ -6,6 +6,7 @@ public class CheckoutPage : MonoBehaviour
     [SerializeField, ChineseLabel("成功页面")] private GameObject successPanel;
     [SerializeField, ChineseLabel("失败页面")] private GameObject gameOverPanel;
     [SerializeField, ChineseLabel("下一关页面")] private GameObject nextLevelPanel;
+    public CaesarData playerCharacterData;
 
     private EnemyManager enemyManager => EnemyManager.Instance;
 
@@ -14,6 +15,7 @@ public class CheckoutPage : MonoBehaviour
     private CharacterDate subscribedCharacter;
 
     private GameManager gameManager => GameManager.Instance;
+    PoolManager poolManager => PoolManager.Instance;
    
 
     void Awake()
@@ -104,7 +106,10 @@ public class CheckoutPage : MonoBehaviour
     public void RestartGame()
     {
         GameManager.Instance.GameResetAction?.Invoke();
-        //ResetSingletons();
+        if(characterManager.GetCurrentPlayerCharacterData != null)
+        {
+            poolManager.ReleasePool(playerCharacterData);
+        }
     }
 
     

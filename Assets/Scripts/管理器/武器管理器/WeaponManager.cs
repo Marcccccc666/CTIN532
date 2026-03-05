@@ -46,6 +46,8 @@ public class WeaponManager: Singleton<WeaponManager>
         // 回收当前武器实例
         isUpgradeInProgress = false;
         poolManager.Release(currentWeaponPrefab, currentWeapon);
+        currentWeaponPrefab = null;
+        currentWeapon = null;
     }
 
     #region 武器切换

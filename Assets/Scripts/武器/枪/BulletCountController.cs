@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,6 +44,14 @@ public class BulletCountController : MonoBehaviour
         {
             weaponManager.OnWeaponSwitched -= UpdateBulletCountUI;
         }
+
+        if (currentWeaponData is GunData gunData)
+        {
+            gunData.OnBulletCountAdded -= AddBulletUI;
+            gunData.OnBulletCountDecreased -= RecycleBulletUIInstances;
+        }
+
+        ClearAllBulletUI();
     }
 
     /// <summary>
@@ -57,6 +64,14 @@ public class BulletCountController : MonoBehaviour
         if (weaponData == null || weaponData == currentWeaponData)
         {
             return;
+        }
+
+        if (currentWeaponData is GunData oldGunData)
+        {
+            oldGunData.OnBulletCountAdded -= AddBulletUI;
+            oldGunData.OnBulletCountDecreased -= RecycleBulletUIInstances;
+
+            ClearAllBulletUI();
         }
 
         currentWeaponData = weaponData;
@@ -124,16 +139,21 @@ public class BulletCountController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 自动更新子弹UI显示
-    /// </summary>
-    private IEnumerator UpdateBulletCountUI()
+    private void ClearAllBulletUI()
     {
-        while (true)
+        while (bulletUIInstances.Count > 0)
         {
-            if(currentWeaponData is GunData gunData)
-            { 
+            var bulletUI = bulletUIInstances.Dequeue();
+
+            if (bulletUI) // 防止已经被销毁
+            {
+                if(poolManager != null)
+                {
+                    poolManager.Release(bulletUIPrefab, bulletUI);
+                }
             }
         }
     }
+
+    
 }

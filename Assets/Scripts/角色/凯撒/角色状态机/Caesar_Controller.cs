@@ -61,9 +61,6 @@ public class Caesar_Controller : MonoBehaviour
     {
         M_chData = GetComponent<CaesarData>();
         
-        M_chData.InitObjectData();
-        M_chData.SetweaponHoldPoint(weaponHoldPoint);
-        
         M_rigidbody2D = GetComponent<Rigidbody2D>();
         
         CharacterStateMachine();
@@ -71,6 +68,7 @@ public class Caesar_Controller : MonoBehaviour
 
     private void OnEnable()
     {
+        M_chData.InitObjectData();
         Caesar_stateMachine.Init();
     }
     
@@ -105,14 +103,10 @@ public class Caesar_Controller : MonoBehaviour
     private void OnDisable()
     {
         // 在对象被释放回池中时执行必要的清理和状态重置
+        Caesar_stateMachine.OnExit();
+
         M_rigidbody2D.linearVelocity = Vector2.zero;
         M_rigidbody2D.angularVelocity = 0f;
-        Caesar_stateMachine.OnExit();
-    }
-
-    public void Release()
-    {
-        pool.Release(this);
     }
 
     /// <summary>
