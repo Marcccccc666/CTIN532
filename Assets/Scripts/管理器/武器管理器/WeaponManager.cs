@@ -7,10 +7,6 @@ using UnityEngine;
 /// </summary>
 public class WeaponManager: Singleton<WeaponManager>
 {
-    /// <summary>
-    /// 当前武器Prefab数据
-    /// </summary>
-    [SerializeField]private WeaponData currentWeaponPrefab;
 
     /// <summary>
     /// 当前武器实例
@@ -49,26 +45,20 @@ public class WeaponManager: Singleton<WeaponManager>
         {
             poolable.Release();
         }
-        currentWeaponPrefab = null;
         currentWeapon = null;
     }
 
     #region 武器切换
     /// <summary>
-    /// 武器切换事件，参数为（新武器Prefab数据， 新武器实例）
+    /// 武器切换事件，参数为（新武器实例）
     /// </summary>
-    public Action<WeaponData, WeaponData> OnWeaponSwitched;
+    public Action<WeaponData> OnWeaponSwitched;
 
     /// <summary>
     /// 切换武器
     /// </summary>
-    public void SwitchWeapon(WeaponData newWeapon)
+    public void SwitchWeapon(WeaponData weaponPrefab)
     {
-        if(currentWeapon == newWeapon)
-        {
-            return; // 如果切换到同一把武器，直接返回
-        }
-
         if(currentWeapon != null)
         {
             if(currentWeapon is IPoolable poolable)
@@ -77,11 +67,9 @@ public class WeaponManager: Singleton<WeaponManager>
             }
         }
 
-        currentWeaponPrefab = newWeapon;
-
          // 根据新武器设置Buff池数据
         currentWeapon = poolManager.Spawn(
-            prefab: currentWeaponPrefab,
+            prefab: weaponPrefab,
             pos: transform.position,
             rot: transform.rotation,
             parent: transform,
@@ -89,7 +77,7 @@ public class WeaponManager: Singleton<WeaponManager>
             maxSize: 1,
             setActive: false); // 先生成但不激活
 
-        OnWeaponSwitched?.Invoke(currentWeaponPrefab, currentWeapon);
+        OnWeaponSwitched?.Invoke(currentWeapon);
 
         currentWeapon.gameObject.SetActive(true); // 切换完成后激活武器实例
     }

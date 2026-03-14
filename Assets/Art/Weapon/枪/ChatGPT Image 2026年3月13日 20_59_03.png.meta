@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 858c0a23d641cf3439bd070586c110f9
+guid: 2d3dbd4fdc640364ebffb6cf07569678
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1011375373586043443
-    second: Steyr Scout_0
+      213: 1062103333147468894
+    second: "ChatGPT Image 2026\u5E743\u670813\u65E5 20_59_03_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Steyr Scout_0
+      name: "ChatGPT Image 2026\u5E743\u670813\u65E5 20_59_03_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 93
-        height: 24
-      alignment: 9
-      pivot: {x: 0.6560152, y: 0.3818284}
+        width: 1024
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3329c253b80290e00800000000000000
-      internalID: 1011375373586043443
+      spriteID: e54630faa595dbe00800000000000000
+      internalID: 1062103333147468894
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a69500966a5e5414eab90bc3928c1b07
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Steyr Scout_0: 1011375373586043443
+      "ChatGPT Image 2026\u5E743\u670813\u65E5 20_59_03_0": 1062103333147468894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

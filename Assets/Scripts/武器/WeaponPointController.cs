@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+public class WeaponPointController : MonoBehaviour
 {
-    [SerializeField, ChineseLabel("当前武器数据")] private WeaponData currentWeaponDataProfab;
     [SerializeField,ChineseLabel("当前武器的游戏对象")] private WeaponData currentWeaponObject;
     private WeaponManager weaponManager => WeaponManager.Instance;
     private PoolManager poolManager => PoolManager.Instance;
@@ -15,7 +14,7 @@ public class WeaponController : MonoBehaviour
         var currentWeaponData = weaponManager.GetCurrentWeapon;
         if(currentWeaponData != null)
         {
-            OnWeaponSwitched(currentWeaponDataProfab, currentWeaponData);
+            OnWeaponSwitched(currentWeaponData);
         }
     }
 
@@ -30,7 +29,7 @@ public class WeaponController : MonoBehaviour
             weaponManager.OnWeaponSwitched -= OnWeaponSwitched;
     }
 
-    private void OnWeaponSwitched(WeaponData weaponDataPrefab, WeaponData weaponData)
+    private void OnWeaponSwitched(WeaponData weaponData)
     {
         // 切换武器时更新武器到玩家位置
         weaponData.transform.SetParent(transform);

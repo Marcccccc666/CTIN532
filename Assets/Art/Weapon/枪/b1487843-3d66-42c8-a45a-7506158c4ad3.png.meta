@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 858c0a23d641cf3439bd070586c110f9
+guid: 4d583936fccb9134ab9f5848f5b6940d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1011375373586043443
-    second: Steyr Scout_0
+      213: 3171978548324241396
+    second: b1487843-3d66-42c8-a45a-7506158c4ad3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Steyr Scout_0
+      name: b1487843-3d66-42c8-a45a-7506158c4ad3_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 93
-        height: 24
+        x: 76
+        y: 465
+        width: 887
+        height: 173
       alignment: 9
-      pivot: {x: 0.6560152, y: 0.3818284}
+      pivot: {x: 0.272362, y: 0.52318805}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3329c253b80290e00800000000000000
-      internalID: 1011375373586043443
+      spriteID: 4ff86001fa1250c20800000000000000
+      internalID: 3171978548324241396
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a69500966a5e5414eab90bc3928c1b07
+    spriteID: 403937e7eeafdda428dbc9816ca49cad
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Steyr Scout_0: 1011375373586043443
+      b1487843-3d66-42c8-a45a-7506158c4ad3_0: 3171978548324241396
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

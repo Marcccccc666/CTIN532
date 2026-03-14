@@ -10,14 +10,14 @@ public class WeaponData : MonoBehaviour, IPoolable
     /// </summary>
     public WeaponBaseData WeaponBaseData => weaponBaseData;
 
-    [SerializeField, ChineseLabel("武器控制器")] protected WeaponBase weaponController;
+    [SerializeField, ChineseLabel("武器控制器")] protected WeaponControllerBase weaponController;
 
     /// <summary>
     /// 获取武器控制器
     /// </summary>
-    public WeaponBase WeaponController => weaponController;
+    public WeaponControllerBase WeaponController => weaponController;
 
-    public void SetWeaponController(WeaponBase controller)
+    public void SetWeaponController(WeaponControllerBase controller)
     {
         weaponController = controller;
     }

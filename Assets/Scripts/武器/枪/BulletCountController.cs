@@ -23,7 +23,7 @@ public class BulletCountController : MonoBehaviour
 
         if(weaponManager.GetCurrentWeapon != null)
         {
-            UpdateBulletCountUI(weaponManager.GetCurrentWeapon, weaponManager.GetCurrentWeapon);
+            UpdateBulletCountUI(weaponManager.GetCurrentWeapon);
         }
     }
 
@@ -68,9 +68,8 @@ public class BulletCountController : MonoBehaviour
     /// <summary>
     /// 显示当前武器的子弹数量UI
     /// </summary>
-    /// <param name="weaponProfab"> 武器预设 </param>
     /// <param name="weaponData"> 武器数据 </param>
-    private void UpdateBulletCountUI(WeaponData weaponProfab,WeaponData weaponData)
+    private void UpdateBulletCountUI(WeaponData weaponData)
     {
         if (weaponData == null || weaponData == currentWeaponData)
         {

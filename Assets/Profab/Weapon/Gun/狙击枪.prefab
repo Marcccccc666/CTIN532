@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 377347420789881234}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.853, y: 0, z: 0}
+  m_LocalPosition: {x: 1.044, y: 0.086, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58,7 +58,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.71, y: 1.71, z: 1.71}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8714853130486551324}
@@ -110,9 +110,9 @@ SpriteRenderer:
   m_SortingLayerID: 1717683145
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1011375373586043443, guid: 858c0a23d641cf3439bd070586c110f9, type: 3}
+  m_Sprite: {fileID: 7283342642753844748, guid: ebf583088d86f5943a67e530e8efc471, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.93, y: 0.24}
@@ -150,7 +150,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 589874659508334990}
   - {fileID: 6729835821019725597}
@@ -186,5 +186,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GunData
   weaponBaseData: {fileID: 11400000, guid: 7741e30c11d0d0c41af1d2c5a6d4792c, type: 2}
-  ballisticsBonus: 0
-  penetrationBonus: 0
+  weaponController: {fileID: 0}
+  currentBulletCount: 0

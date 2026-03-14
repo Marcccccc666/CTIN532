@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f918ea78d0abbde4fb5886580b25c86d, type: 3}
-  m_Name: InitialGunData
+  m_Name: "\u624B\u67AA\u57FA\u7840\u6570\u636E"
   m_EditorClassIdentifier: Assembly-CSharp::InitialGunData
-  weaponName: 
+  weaponName: Handgun
   weaponDamage: 2
   attackInterval: 0.5
   weaponRotationSpeed: 1000
@@ -29,6 +29,8 @@ MonoBehaviour:
   weaponBrachs:
   - Type: 0
     Data: {fileID: 552668349250534157, guid: a3aa2128ac5849145a847098f294467a, type: 3}
+    WeaponSprite: {fileID: 1062103333147468894, guid: 2d3dbd4fdc640364ebffb6cf07569678, type: 3}
   - Type: 1
     Data: {fileID: 3370740047181341185, guid: 9452c2f88e707d14a9fee8bbc61a3659, type: 3}
+    WeaponSprite: {fileID: 5425700474609381865, guid: 3227174d93815e04c9656db715674427, type: 3}
   WeaponSpecificBuffs: {fileID: 11400000, guid: 1e58761a585a2c4428847437b10e23d1, type: 2}

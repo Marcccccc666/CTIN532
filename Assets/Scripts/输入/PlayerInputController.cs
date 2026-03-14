@@ -25,6 +25,9 @@ public class PlayerInputController : MonoBehaviour
         {
             inputManager.SetMouseState(MouseState.Press);
             StartCoroutine(HoldAttackCoroutine());
+
+            // 触发鼠标点击事件
+            inputManager.OnMouseLeftClick?.Invoke();
         }
         else if(context.canceled)
         {

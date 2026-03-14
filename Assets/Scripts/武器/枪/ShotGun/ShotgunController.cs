@@ -5,11 +5,6 @@ public class ShotgunController : GunController
 {
     private ShotGunDate M_gunData => WeaponData as ShotGunDate;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
 
     public override void Attack()
     {

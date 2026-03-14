@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 管理游戏状态
@@ -44,10 +45,24 @@ public class GameManager : Singleton<GameManager>
     }
 #endregion
 
+    #region 游戏重置
+
     /// <summary>
     /// 游戏重置事件
     /// </summary>
     public Action GameResetAction;
+
+    #endregion
+
+    #region 游戏切换场景
+    public Action GameSceneChangedAction;
+
+    public void ChangeScene(string SceneName)
+    {
+        GameSceneChangedAction?.Invoke();
+        SceneManager.LoadScene(SceneName);
+    }
+    #endregion
 
 #region 玩家可操作
     /// <summary>

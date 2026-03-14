@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GunController : WeaponBase
+public class GunController : WeaponControllerBase
 {
     [Header("动画相关")]
     [SerializeField, ChineseLabel("动画控制器")] protected Animator gunAnimator;
@@ -10,6 +10,7 @@ public class GunController : WeaponBase
     [Header("射击相关")]
     [SerializeField, ChineseLabel("子弹生成点")] protected Transform bulletSpawnPoint;
 
+
     /// <summary>
     /// 枪械数据
     /// </summary>
@@ -18,7 +19,7 @@ public class GunController : WeaponBase
     protected override void Awake()
     {
         base.Awake();
-        if(!gunAnimator)
+        if(gunAnimator)
         {
             shootAnimationHash = Animator.StringToHash(shootAnimationName);
         }
@@ -28,42 +29,41 @@ public class GunController : WeaponBase
 
     protected override void Update()
     {
-        if(!gameManager.IsPlayerControllable)
-        {
-            return;
-        }
         base.Update();
-
-        if(inputManager.CurrentMouseState == MouseState.Press || inputManager.CurrentMouseState == MouseState.Hold)
-        {
-            if(MultiTimerManager.IsDownTimerComplete("GunAttackCooldown") )
-            {
-                int currentBulletCount = M_gunData.CurrentBulletCount;
-                if (currentBulletCount <= 0)
-                {
-                    return; // 没有子弹，无法攻击
-                }
-
-                buffManager.BeforeAttackTriggered?.Invoke(M_gunData);
-                if(M_gunData.IsConsumingBullet)
-                {
-                    M_gunData.CurrentBulletCount = currentBulletCount - 1; // 消耗一发子弹
-                }
-                
-                buffManager.AttackTriggered?.Invoke(bulletSpawnPoint);
-                Attack();
-                buffManager.AfterAttackTriggered?.Invoke(M_gunData);
-
-                if(M_attackAudioClip != null)
-                {
-                    audioManager.PlaySFX(M_attackAudioClip);
-                }
-                MultiTimerManager.Start_DownTimer("GunAttackCooldown", weaponManager.GetFinalAttackInterval(M_gunData.WeaponBaseData.AttackInterval));
-            }
-        }
     }
 
+    protected override void HandleMouseClick()
+    {
+        int currentBulletCount = M_gunData.CurrentBulletCount;
+        if (currentBulletCount <= 0)
+        {
+            return; // 没有子弹，无法攻击
+        }
 
+        buffManager.BeforeAttackTriggered?.Invoke(M_gunData);
+        if(M_gunData.IsConsumingBullet)
+        {
+            M_gunData.CurrentBulletCount = currentBulletCount - 1; // 消耗一发子弹
+        }
+        
+        buffManager.AttackTriggered?.Invoke(bulletSpawnPoint);
+        Attack();
+        buffManager.AfterAttackTriggered?.Invoke(M_gunData);
+
+        if(M_attackAudioClip != null)
+        {
+            audioManager.PlaySFX(M_attackAudioClip);
+        }
+        MultiTimerManager.Start_DownTimer("GunAttackCooldown", weaponManager.GetFinalAttackInterval(M_gunData.WeaponBaseData.AttackInterval));
+    }
+
+    protected override void HandleMouseHold()
+    {
+        if(MultiTimerManager.IsDownTimerComplete("GunAttackCooldown") )
+        {
+            HandleMouseClick();
+        }
+    }
 
     public override void Attack()
     {
@@ -108,7 +108,6 @@ public class GunController : WeaponBase
         {
             bullet.gameObject.SetActive(true);
         }
-
     }
 
 }

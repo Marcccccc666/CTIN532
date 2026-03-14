@@ -1,10 +1,15 @@
 using UnityEngine;
 
-public abstract class WeaponBase : MonoBehaviour
+public abstract class WeaponControllerBase : MonoBehaviour
 {
     [SerializeField, ChineseLabel("武器数据")] protected WeaponData WeaponData;
 
     [SerializeField,ChineseLabel("攻击音效")]protected AudioClip M_attackAudioClip;
+
+    /// <summary>
+    /// 能否操控
+    /// </summary>
+    protected bool CanControl = true;
 
     protected InputManager inputManager => InputManager.Instance;
 
@@ -21,16 +26,13 @@ public abstract class WeaponBase : MonoBehaviour
     /// </summary>
     protected virtual void Awake()
     {
-        if (WeaponData == null)
-        {
-            OnValidate();
-        }
         WeaponData.SetWeaponController(this);
     }
 
     protected virtual void OnEnable()
     {
-        
+        CanControl = true;
+        inputManager.OnMouseLeftClick += HandleMouseClick;
     }
 
     protected virtual void Start()
@@ -43,16 +45,43 @@ public abstract class WeaponBase : MonoBehaviour
 
     protected virtual void Update()
     {
+        if(!CanControl)
+        {
+            return;
+        }
         // 使武器始终朝向鼠标位置
         Vector2 mouseWorldPosition = inputManager.MouseWorldPosition;
         ObjectRotation.RotateTowardsTarget(this.transform, mouseWorldPosition, WeaponData.WeaponBaseData.WeaponRotationSpeed);
+        
+        if(inputManager.CurrentMouseState == MouseState.Hold)
+        {
+            HandleMouseHold();
+        }
     }
 
     protected virtual void OnDisable()
     {
-        
+        if (inputManager)
+        {
+            inputManager.OnMouseLeftClick -= HandleMouseClick;
+        }
     }
 
+    /// <summary>
+    /// 鼠标点击事件处理方法
+    /// </summary>
+    protected virtual void HandleMouseClick()
+    {
+
+    }
+
+    /// <summary>
+    /// 鼠标按住事件处理方法
+    /// </summary>
+    protected virtual void HandleMouseHold()
+    {
+
+    }
 
     /// <summary>
     /// 武器攻击方法
@@ -60,6 +89,24 @@ public abstract class WeaponBase : MonoBehaviour
     public virtual void Attack()
     {
         
+    }
+
+    /// <summary>
+    /// 游戏暂停事件
+    /// </summary>
+    public virtual void OnGamePaused()
+    {
+        CanControl = false;
+        inputManager.OnMouseLeftClick -= HandleMouseClick;
+    }
+
+    /// <summary>
+    /// 游戏继续事件
+    /// </summary>
+    public virtual void OnGameResumed()
+    {
+        CanControl = true;
+        inputManager.OnMouseLeftClick += HandleMouseClick;
     }
 
 #region UNITY_EDITOR

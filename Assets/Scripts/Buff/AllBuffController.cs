@@ -15,8 +15,6 @@ public class AllBuffController : MonoBehaviour
 
     private BuffManager buffManager => BuffManager.Instance;
     private WeaponManager weaponManager => WeaponManager.Instance;
-    private CharacterManager characterManager => CharacterManager.Instance;
-    private GameManager gameManager => GameManager.Instance;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -30,7 +28,7 @@ public class AllBuffController : MonoBehaviour
         
         if(weaponManager.GetCurrentWeapon != null)
         {
-            SetBuffPollData(weaponManager.GetCurrentWeapon, weaponManager.GetCurrentWeapon);
+            SetBuffPollData(weaponManager.GetCurrentWeapon);
         }
         OnNewBuffListReceived();
     }
@@ -101,7 +99,7 @@ public class AllBuffController : MonoBehaviour
     /// <summary>
     /// 切换武器时更新 Buff 池数据
     /// </summary> <param name="weaponProfab"> 武器预设 </param> <param name="weaponData"> 武器数据 </param>
-    public void SetBuffPollData(WeaponData weaponProfab,WeaponData weaponData)
+    public void SetBuffPollData(WeaponData weaponData)
     {
         WeaponBaseData weaponBaseData = weaponData.WeaponBaseData;
         bool IsInitialWeapon = weaponBaseData is IInitialWeapon;

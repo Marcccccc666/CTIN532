@@ -8,6 +8,10 @@ public class WeaponBaseData : ScriptableObject
     /// 武器名称
     /// </summary>
     public string WeaponName => weaponName;
+
+    [SerializeField, ChineseLabel("武器介绍"), TextArea] private string weaponDescription;
+
+    public string WeaponDescription => weaponDescription;
     [SerializeField, ChineseLabel("武器伤害")] private int weaponDamage;
     /// <summary>
     /// 武器伤害

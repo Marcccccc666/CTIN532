@@ -17,7 +17,7 @@ public class ShotAgain : BuffDefinition
 
     private void OnAfterAttack(WeaponData attacker)
     {
-        WeaponBase weapon = attacker.WeaponController;
+        WeaponControllerBase weapon = attacker.WeaponController;
         if(weapon)
         {
             if(Random.value < probability)

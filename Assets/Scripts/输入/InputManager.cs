@@ -52,6 +52,11 @@ public class InputManager : Singleton<InputManager>
             return mouseWorldPosition;
         }
     }
+
+    /// <summary>
+    /// 鼠标左键点击事件
+    /// </summary>
+    public Action OnMouseLeftClick;
 #endregion
 
 #region Interaction

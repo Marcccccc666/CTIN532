@@ -5,8 +5,6 @@ public class ChooseWeaponBranch : MonoBehaviour
     [SerializeField, ChineseLabel("分支选择界面")] private GameObject branchSelectionUI;
 
     [SerializeField, ChineseLabel("分支卡")] private WeaponBranchCard[] weaponBranchCards;
-
-    private WeaponData currentWeaponDataProfab;
     private WeaponManager weaponManager => WeaponManager.Instance;
     private BuffManager buffManager => BuffManager.Instance;
 
@@ -28,7 +26,7 @@ public class ChooseWeaponBranch : MonoBehaviour
         var currentWeaponData = weaponManager.GetCurrentWeapon;
         if(currentWeaponData != null)
         {
-            UpdateSelectionUI(currentWeaponDataProfab, currentWeaponData);
+            UpdateSelectionUI(currentWeaponData);
         }
     }
 
@@ -55,7 +53,7 @@ public class ChooseWeaponBranch : MonoBehaviour
         }
     }
 
-    private void UpdateSelectionUI(WeaponData weaponDataPrefab, WeaponData newWeapon)
+    private void UpdateSelectionUI(WeaponData newWeapon)
     {
         if(newWeapon.WeaponBaseData is IInitialWeapon initialWeaponData)
         {
@@ -64,11 +62,11 @@ public class ChooseWeaponBranch : MonoBehaviour
             {
                 if (i < weaponBranches.Length)
                 {
-                    weaponBranchCards[i].SetWeaponBranch(weaponBranches[i].Data, weaponBranches[i].Type);
+                    weaponBranchCards[i].SetWeaponBranch(weaponBranches[i].Data, weaponBranches[i].Type, weaponBranches[i].WeaponSprite);
                 }
                 else
                 {
-                    weaponBranchCards[i].SetWeaponBranch(null, default);
+                    weaponBranchCards[i].SetWeaponBranch(null, default, null);
                 }
             }
         }

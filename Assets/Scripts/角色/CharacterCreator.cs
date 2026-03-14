@@ -66,7 +66,8 @@ public class CharacterCreator : MonoBehaviour
                 defaultCapacity: 1,
                 maxSize: 1,
                 setActive: true);
+            characterManager.SetCurrentPlayerCharacterData(currentCharacterData);
         }
-        characterManager.SetCurrentPlayerCharacterData(currentCharacterData);
+        
     }
 }

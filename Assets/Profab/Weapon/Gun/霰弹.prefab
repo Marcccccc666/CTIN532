@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3196002694871503453}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4797939, y: 0, z: 0}
+  m_LocalPosition: {x: 0.9783, y: 0.0454, z: 0}
   m_LocalScale: {x: 1.4029064, y: 1.4029064, z: 1.4029064}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -58,8 +58,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4029064, y: 1.4029064, z: 1.4029064}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6785665761256245742}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -110,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 1717683145
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 49f5a06f7f62a3e498248db12796bfa5, type: 3}
+  m_Sprite: {fileID: 3171978548324241396, guid: 4d583936fccb9134ab9f5848f5b6940d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -186,5 +186,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShotGunDate
   weaponBaseData: {fileID: 11400000, guid: 422660c1d8ea7894f845b35b749fd50a, type: 2}
-  ballisticsBonus: 0
-  penetrationBonus: 0
+  weaponController: {fileID: 0}
+  currentBulletCount: 0

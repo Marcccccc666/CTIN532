@@ -16,8 +16,9 @@ public enum WeaponType
 [System.Serializable]
 public class WeaponBranch
 {
-    public WeaponType Type;
-    public WeaponData Data;
+    [ChineseLabel("武器类型")]public WeaponType Type;
+    [ChineseLabel("武器数据")]public WeaponData Data;
+    [ChineseLabel("武器升级UI图片")]public Sprite WeaponSprite;
 }
 
 
